@@ -1,0 +1,921 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<meta charset="utf-8">
+<title>Дом с верандой</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<style>
+:root{
+ --bg:#eef0ed;--surface:#ffffff;--ink:#1d2527;--muted:#5c676a;--line:#c9cfcc;--wall:#232b2e;
+ --viewer:#dfe4df;--accent:#2f6f73;--accent-ink:#ffffff;--floor:#f7f8f6;--deck:#efe4d6;--lawn:#e3eed9;--lawn2:#f0f4ea;
+ --k-fill:#f6ddd2;--k-stroke:#b9674a;--d-fill:#d6ece6;--d-stroke:#3f8f7c;
+ --l-fill:#e3def3;--l-stroke:#6d5fb0;--f-fill:#e4e8e5;--f-stroke:#7d8784;
+ --conc:#d6d4ce;--rib:#b9b4a9;--xps:#f1e3a8;--sand:#e9dcc0;--soil:#d6c9ae;--old:#e8dfcf;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+ color-scheme:dark;--bg:#151a1b;--surface:#1e2527;--ink:#e6ebea;--muted:#9aa6a8;--line:#3a4447;--wall:#e6ebea;
+ --viewer:#222a2c;--accent:#6fb5b8;--accent-ink:#0f1a1b;--floor:#232b2d;--deck:#3a3129;--lawn:#1f2b22;--lawn2:#1a211c;
+ --k-fill:#4a2c22;--k-stroke:#e0997c;--d-fill:#1f3d36;--d-stroke:#7cc7b3;
+ --l-fill:#2f2a4a;--l-stroke:#a99ce6;--f-fill:#2c3436;--f-stroke:#8e9a9c;
+ --conc:#4b4f51;--rib:#63676a;--xps:#5a5030;--sand:#4a4232;--soil:#3b3427;--old:#3b362e;
+}}
+:root[data-theme="dark"]{
+ color-scheme:dark;--bg:#151a1b;--surface:#1e2527;--ink:#e6ebea;--muted:#9aa6a8;--line:#3a4447;--wall:#e6ebea;
+ --viewer:#222a2c;--accent:#6fb5b8;--accent-ink:#0f1a1b;--floor:#232b2d;--deck:#3a3129;--lawn:#1f2b22;--lawn2:#1a211c;
+ --k-fill:#4a2c22;--k-stroke:#e0997c;--d-fill:#1f3d36;--d-stroke:#7cc7b3;
+ --l-fill:#2f2a4a;--l-stroke:#a99ce6;--f-fill:#2c3436;--f-stroke:#8e9a9c;
+ --conc:#4b4f51;--rib:#63676a;--xps:#5a5030;--sand:#4a4232;--soil:#3b3427;--old:#3b362e;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:16px;padding-block:24px 40px;display:grid;gap:14px}
+header{display:grid;gap:8px}
+h1{font-size:clamp(22px,4vw,30px);font-weight:600;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.specs{display:flex;flex-wrap:wrap;gap:6px 14px;font:13px/1.4 "IBM Plex Mono",ui-monospace,monospace;color:var(--muted)}
+.specs b{color:var(--ink);font-weight:500}
+.row{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+.bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.bar button{font:inherit;font-size:14px;padding:7px 13px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer}
+.bar button:hover{border-color:var(--muted)}
+.bar button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.bar button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.bar button:disabled{opacity:.45;cursor:default}
+.bar .sep{width:1px;height:24px;background:var(--line);margin-inline:4px}
+.lbl{font:12px "IBM Plex Mono",monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.big button{font-weight:500}
+#v3{display:grid;gap:10px}
+#cv{position:relative;width:100%;aspect-ratio:4/3;max-height:74vh;background:var(--viewer);border-radius:12px;overflow:hidden}
+#cv canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}
+#msg{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:var(--muted)}
+.hint{font-size:13px;color:var(--muted);margin:0}
+.planbox{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:16px;align-items:start}
+@media (max-width:820px){.planbox{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;overflow-x:auto}
+svg text{font-family:"IBM Plex Mono",ui-monospace,monospace}
+.ts{font-size:12px;fill:var(--muted)}
+.rn{font:500 12px "IBM Plex Sans",system-ui,sans-serif;fill:var(--ink)}
+.ra{font-size:11px;fill:var(--muted)}
+.halo{paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+.k rect,.k circle{fill:var(--k-fill);stroke:var(--k-stroke);stroke-width:1}
+.d rect{fill:var(--d-fill);stroke:var(--d-stroke);stroke-width:1}
+.l rect,.l circle{fill:var(--l-fill);stroke:var(--l-stroke);stroke-width:1}
+.f rect,.f circle,.f polygon{fill:var(--f-fill);stroke:var(--f-stroke);stroke-width:.8}
+.v rect,.v polygon{fill:var(--deck);stroke:var(--f-stroke);stroke-width:.8}
+.k .o,.l .o,.f .o,.d .o{fill:none}
+table{width:100%;border-collapse:collapse;font-size:14px}
+caption{text-align:left;font-weight:500;padding-bottom:8px}
+td{padding:5px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child{width:28px;color:var(--muted);font:13px "IBM Plex Mono",monospace}
+td:last-child{text-align:right;font:13px "IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.sum td{font-weight:500;border-bottom:2px solid var(--ink)}
+tr.out td{color:var(--muted)}
+.notes{display:grid;gap:6px;margin:0;padding-left:18px;color:var(--muted);font-size:14px;max-width:74ch}
+.notes b{color:var(--ink);font-weight:500}
+.dims{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:16px;align-items:start}
+.dt td:first-child{width:auto;color:var(--ink);font:inherit;padding-right:8px}
+.dt td.v{text-align:right;font:13px "IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;white-space:nowrap;padding-right:10px}
+.dt td:last-child{font:12px "IBM Plex Sans",system-ui,sans-serif;color:var(--muted);white-space:nowrap}
+.dt td.m{color:var(--accent)}
+</style>
+<div class="wrap">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs><pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><path d="M0 0 L0 9 M0 0 L9 0" stroke="var(--f-stroke)" stroke-width="1"/></pattern></defs></svg>
+<header>
+<h1>Дом с широким выступом</h1>
+<div class="specs"><span>общая <b>≈ 191,0 м²</b></span><span>1 этаж <b>94,7 м²</b></span><span>2 этаж <b>96,3 м²</b></span><span>выступ <b>7,7 × 4,5 м</b></span><span>склад <b>5,5 × 5,6 м</b></span><span>балкон <b>5,2 м²</b></span><span>дом <b>8,4 × 15,3 м</b></span><span>фундамент <b>плита 250 мм с рёбрами</b></span><span>крыша <b>30°</b>, конёк <b>≈ 8,7 м</b> от земли</span></div>
+</header>
+<div class="row">
+<div class="bar big" id="floors"><span class="lbl">Показать</span>
+<button id="fl-1" data-f="1" aria-pressed="false">1 этаж</button>
+<button id="fl-2" data-f="2" aria-pressed="true">2 этаж</button>
+<button id="fl-0" data-f="0" aria-pressed="false">Только фундамент</button>
+<span class="sep" aria-hidden="true"></span>
+<button id="roof-btn" aria-pressed="true">Крыша</button>
+</div>
+<div class="bar big" id="tabs"><span class="lbl">Вид</span>
+<button id="tab-3d" data-t="v3" aria-pressed="true">3D-модель</button>
+<button id="tab-plan" data-t="plan" aria-pressed="false">План и экспликация</button>
+<button id="tab-site" data-t="sitetab" aria-pressed="false">Схема участка</button>
+</div>
+</div>
+
+<section id="v3">
+<div class="bar" id="views"></div>
+<div id="cv"><div id="msg">Загружаю 3D-модель…</div></div>
+<p class="hint" id="hint">Тяни — вращать · колесо или два пальца — приближать · Shift + тяни — сдвигать</p>
+</section>
+
+<section id="plan" hidden>
+<div class="planbox">
+<div class="card">
+<div id="plan0" hidden>
+<svg id="fplan" viewBox="0 -70 680 960" width="100%" role="img" style="min-width:540px"><title>План фундамента</title><desc>Монолитная плита 250 мм по контуру дома 8,4 × 15,3 м, рёбра под плитой показаны пунктиром, отдельная плита крыльца, винтовые сваи веранды, привязка к границе участков и переднему забору. Размеры в мм.</desc></svg>
+<svg id="fsec" viewBox="0 0 680 300" width="100%" role="img" style="min-width:540px;margin-top:6px"><title>Край плиты в разрезе</title><desc>Разрез по наружной стене: стена 400, плита 250, ребро 400 × 400, ЭППС 100, подушка 300, утеплённая отмостка, отметки от чистого пола.</desc></svg>
+</div>
+<svg id="plan1" viewBox="0 0 680 760" width="100%" role="img" style="min-width:540px" hidden><title>План первого этажа</title><desc>Первый этаж: кухня-столовая слева и гостиная с П-образным диваном справа, между ними несущая стена вдоль дома со стеклянными раздвижными дверями, гардероб, санузел, спальня, коридор с П-образной лестницей, кладовка, бойлерная, тамбур и крыльцо. Размеры в мм.</desc></svg>
+<svg id="plan2" viewBox="0 0 680 760" width="100%" role="img" style="min-width:540px"><title>План второго этажа</title><desc>Второй этаж: большая мастер-спальня с зоной отдыха в расширенном выступе, гардеробная и санузел при ней, две спальни, кабинет, общий санузел, коридор с лестницей и балкон над крыльцом. Размеры в мм.</desc></svg>
+</div>
+<div class="card">
+<div id="t0" hidden>
+<table>
+<caption>Фундамент · монолитная плита</caption>
+<tr><td>1</td><td>Плита 250 мм, 120,2 м²</td><td>30,0 м³</td></tr>
+<tr><td>Р1</td><td>Рёбра по контуру 400 × 400, 45,8 м</td><td>7,3 м³</td></tr>
+<tr><td>Р2</td><td>Рёбра под несущими стенами 300 × 300, 27,8 м</td><td>2,5 м³</td></tr>
+<tr class="sum"><td></td><td>Бетон под дом</td><td>39,9 м³</td></tr>
+<tr class="out"><td>2</td><td>Плита крыльца 200 мм, через шов</td><td>1,1 м³</td></tr>
+<tr class="out"><td>3</td><td>Площадка у двери в сад 200 мм</td><td>0,6 м³</td></tr>
+</table>
+<p class="hint" style="margin-top:10px">Пунктир на плане — рёбра под плитой. Отметки в метрах от чистого пола 1 этажа. Сечения ориентировочные, армирование и точные размеры считает конструктор по геологии участка.</p>
+</div>
+<table id="t1" hidden>
+<caption>Экспликация · 1 этаж</caption>
+<tr><td>1</td><td>Кухня-столовая</td><td>25,29</td></tr>
+<tr><td>2</td><td>Гостиная</td><td>30,02</td></tr>
+<tr><td>3</td><td>Гардероб</td><td>3,50</td></tr>
+<tr><td>4</td><td>Санузел</td><td>3,50</td></tr>
+<tr><td>5</td><td>Спальня</td><td>15,12</td></tr>
+<tr><td>6</td><td>Коридор с лестницей</td><td>7,73</td></tr>
+<tr><td>7</td><td>Кладовка</td><td>2,50</td></tr>
+<tr><td>8</td><td>Бойлерная</td><td>4,46</td></tr>
+<tr><td>9</td><td>Тамбур</td><td>2,56</td></tr>
+<tr class="sum"><td></td><td>Итого</td><td>94,68</td></tr>
+<tr class="out"><td>10</td><td>Крыльцо</td><td>5,20</td></tr>
+</table>
+<table id="t2">
+<caption>Экспликация · 2 этаж</caption>
+<tr><td>1</td><td>Мастер-спальня с зоной отдыха</td><td>29,67</td></tr>
+<tr><td>2</td><td>Гардеробная</td><td>6,84</td></tr>
+<tr><td>3</td><td>Санузел при спальне</td><td>6,48</td></tr>
+<tr><td>4</td><td>Спальня</td><td>12,96</td></tr>
+<tr><td>5</td><td>Санузел</td><td>5,00</td></tr>
+<tr><td>6</td><td>Коридор с лестницей</td><td>8,88</td></tr>
+<tr><td>7</td><td>Спальня</td><td>15,30</td></tr>
+<tr><td>8</td><td>Кабинет</td><td>11,21</td></tr>
+<tr class="sum"><td></td><td>Итого</td><td>96,34</td></tr>
+<tr class="out"><td>9</td><td>Балкон над крыльцом</td><td>5,20</td></tr>
+</table>
+</div>
+</div>
+</section>
+
+<section id="sitetab" hidden>
+<div class="card">
+<svg id="site" viewBox="0 0 729 581" width="100%" role="img" style="min-width:560px"><title>Схема участков</title><desc>Участки …299 и …300 со всеми размерами: длины заборов, склад 5,5 × 5,6 и вагончик вдоль левого забора, новый дом 8,4 × 15,3 с верандой, существующий дом 11 × 10, ворота, привязки построек к заборам и границе.</desc></svg>
+<p class="hint" style="margin-top:8px"><b style="color:var(--accent);font-weight:500">Бирюзовым</b> — ваши замеры и требования, <b style="color:var(--muted);font-weight:500">серым</b> — остальное: проект, кадастр, мои допущения и расчёт. Размеры в метрах.</p>
+</div>
+<div class="dims" id="dims"></div>
+</section>
+
+<ul class="notes">
+<li><b>Замеры с эскиза.</b> Пунктир на эскизе я понял как границу между участками …299 и …300. Склад 5,5 × 5,6 м. Его задний угол со стороны дома стоит в 10,4 м от границы, от этого места вдоль границы до переднего забора 18,7 м. От заднего угла участка вдоль левого забора до склада 10,6 м. По модели от переднего угла склада до границы выходит 12,7 м и до переднего забора 13,6 м, у вас 12,8 и 13,5. Расхождение 10 см, это в пределах точности рулетки. Верхняя строчка на фото обрезана, поэтому размер «до забора у эл. столба» я не увидел.</li>
+<li><b>Участки.</b> Новый дом стоит на участке …299. Правая стена в 2 м от границы с …300, это обязательный отступ. Фасад в 4,5 м от переднего забора. Выступ смотрит в дальний конец участка, вход к воротам. На участке …300 уже стоит двухэтажный дом 11 × 10 м в 2 м от границы и в 6 м от переднего забора. Я нарисовал его по фото. Крыша двускатная несимметричная, конёк идёт от фасада к заднему забору и сдвинут вправо, длинный пологий скат смотрит на новый дом. Карниз примерно на 5 м, конёк на 7,6 м, это оценка по фото. Считаю, что фасад с гаражом смотрит на передний забор. Пристройки сзади не рисовал. Снег с длинного ската будет сходить в двухметровую полосу у границы, так что на этот скат стоит поставить снегозадержатели. Между домами получается 4 м. Это меньше обычного противопожарного разрыва между домами на соседних участках (от 6 м), стоит проверить, как это решается для ваших двух участков. По замерам левый забор проходит на 0,6–0,9 м дальше, чем по кадастровым цифрам, поэтому торец с воротами на плане вышел ≈8,8 м вместо 8. Его лучше перемерить. Забор высотой 2 м идёт по всему внешнему периметру обоих участков, между ними забора нет. Ворота 4,5 м без верхней балки и калитка стоят в нижнем левом торце, от калитки к крыльцу ведёт дорожка.</li>
+<li><b>Фундамент — монолитная плита 250 мм</b> ровно по контуру дома, 120,2 м². Снизу рёбра: по контуру 400 × 400 мм под наружными стенами и 300 × 300 мм под несущими внутренними стенами (три поперёк дома, одна вдоль коридора). Верх плиты на −0,100, на стяжку и пол остаётся 100 мм. Низ плиты на уровне земли, низ рёбер на −0,750. Под плитой ЭППС 100 мм и песчано-щебёночная подушка 300 мм, торец плиты утеплён, вокруг утеплённая отмостка. Бетона под дом уходит ≈39,8 м³. Крыльцо и площадка у двери в сад стоят на отдельных плитах 200 мм через шов. Сечения ориентировочные: армирование и точные размеры считает конструктор по геологии участка.</li>
+<li><b>Mercedes Atego с кузовом 7 м</b> (вся машина около 9,3 м) заезжает вдоль переднего забора и проезжает вперёд до границы второго участка. До забора 0,5 м, до фасада около 1,5 м, проход к крыльцу остаётся. Чтобы грузовик заезжал прямо вдоль забора, ворота 4,5 м сдвинуты в самый угол торца, калитка дальше по торцу. Это работает, если с улицы он подъезжает примерно вдоль переднего забора. Площадка засыпана асфальтной крошкой. Кузов высотой около 3,3 м будет стоять напротив большого окна на первом этаже со стороны входа и затенять его.</li>
+<li><b>Склад 5,5 × 5,6 м</b> стоит стороной 5,6 м вплотную к левому забору, под углом ≈24° к дому. Склад обшит OSB. Дверь пластиковая прозрачная, у склада два окна 1 × 1 м: рядом с дверью слева и справа за углом. Через 1 м после склада вдоль забора в сторону ворот стоит вагончик-бытовка 8 × 2,4 м на блоках: обшит серым профлистом, по контуру синий профиль, крыша плоская чёрная. Дверь справа на длинной стороне к двору, окна только в торцах. Между углом склада и стеной выступа проход 0,7 м, передний угол склада в 2,3 м от стены дома. Склад стоит на стальных сваях с зазором 40 см от земли. Корпус высотой 3 м со стороны дома и 2 м у забора, крыша со скатом к забору. Вход через обычную пластиковую дверь с крыльцом из трёх ступенек в торце со стороны входа в дом.</li>
+<li><b>Выступ расширен до 7,7 м</b> влево, на место веранды, и стал двухэтажным. Шире не выходит: слева склад, справа обязательные 2 м до границы. Между углом склада и стеной выступа остаётся проход 0,7 м. Первый этаж делит пополам несущая стена вдоль дома. Слева кухня-столовая 25,3 м². Сзади в ней стол 2,2 × 1,0 м на 8 человек и стеклянная дверь 2 м в сад на бетонную площадку. Спереди кухня: колонны с холодильником и духовкой и мойка под окном у левой стены, варочная у стены санузла, остров 1,5 × 0,9 м. Справа гостиная 30 м². П-образный диван основанием стоит вплотную к правой стене и открыт к телевизору на несущей стене. Сзади у окна два кресла со столиком и стеллаж. Из кухни в гостиную ведут стеклянные раздвижные двери 3,2 м и проём у двери в коридор. Веранды больше нет. Если она нужна, её можно сделать террасой за столовой: до заднего забора там почти 11 м.</li>
+<li><b>Несущая стена вдоль дома.</b> Под коньком, от задней стены выступа до крыльца, идёт одна несущая линия. На первом этаже это стена между кухней и гостиной, дальше стена коридора и стена у крыльца. На втором этаже над ней стоят стены спальни, гардеробной, спальни и кабинета. Перекрытия с обеих сторон опираются на неё и на наружные стены, пролёт около 3,8 м, так что длинная балка не нужна. Под стеной в фундаменте сплошное ребро. Над стеклянными дверями и над проёмом 2,6 м в мастер-спальне нужны перемычки.</li>
+<li><b>Крыша двускатная, уклон 30°.</b> Конёк идёт вдоль длинной стороны дома на высоте ≈ 8,4 м от пола 1 этажа (≈ 8,7 м от земли), свесы по 500 мм. Крыша одна на весь дом вместе с расширенным выступом. Левая стена выступа стоит на 0,7 м внутри, поэтому над проходом к складу получается свес 1,2 м. Балкон оказывается под общей крышей.</li>
+<li><b>Мастер-спальня</b> занимает весь второй этаж выступа, 29,7 м². Несущая стена проходит через неё широким проёмом 2,6 м: справа кровать, слева зона отдыха с двумя креслами у заднего окна и рабочим столом у бокового. Из коридора в неё по-прежнему проходишь через гардеробную, в свой санузел ведут две двери. Спальня 4 получила окно в левой стене, кровать в ней развёрнута изголовьем к несущей стене.</li>
+<li><b>Стояки.</b> Общий санузел второго этажа стоит над санузлом и гардеробом первого, трубы идут прямо вниз. В мастер-санузле душ и унитаз собраны у торцевой стены, поэтому стояк выходит на первом этаже в гостиной у правой стены, за спинкой дивана, его можно зашить в короб. Кухня стоит у стены санузла первого этажа, вода и канализация рядом.</li>
+<li><b>Балкон 4,0 × 1,3 м</b> стоит над крыльцом и одновременно служит ему навесом. Выход на балкон из кабинета через стеклянную дверь 2400.</li>
+<li><b>Площади</b> кухни-гостиной и мастер-спальни после расширения посчитаны по модели, остальные взяты из проекта. Лестница П-образная, 18 подъёмов по ~170 мм. Это схема для обсуждения, не рабочий чертёж.</li>
+</ul>
+</div>
+
+<script>
+window.HOUSE={FL2:3060,H1:2800,H2:2700,
+walls1:[
+ {o:'h',a0:0,a1:300,c0:4100,c1:4500,ops:[]},
+ {o:'v',a0:-400,a1:4500,c0:300,c1:700,ops:[{f:2000,t:3400,s:900,h:2700,k:'w'}]},
+ {o:'h',a0:700,a1:7600,c0:-400,c1:0,ops:[{f:1200,t:3200,s:0,h:2400,k:'g'},{f:4800,t:6800,s:700,h:2700,k:'w'}]},
+ {o:'v',a0:-400,a1:13600,c0:7600,c1:8000,ops:[{f:5200,t:6800,s:900,h:2700,k:'w'},{f:8700,t:9700,s:300,h:2800,k:'w'}]},
+ {o:'v',a0:0,a1:7900,c0:3600,c1:3800,ops:[1200,2000,2800,3600].map(f=>({f,t:f+800,s:0,h:2400,k:'g'})).concat([{f:6900,t:7800,s:0,h:2100,k:'d'}])},
+ {o:'v',a0:4100,a1:14900,c0:-400,c1:0,ops:[{f:5900,t:7100,s:900,h:2300,k:'w'}]},
+ {o:'h',a0:0,a1:3600,c0:14500,c1:14900,ops:[{f:600,t:3000,s:300,h:2700,k:'w'}]},
+ {o:'v',a0:13200,a1:14900,c0:3600,c1:4000,ops:[]},
+ {o:'h',a0:4000,a1:7600,c0:13200,c1:13600,ops:[{f:4200,t:5100,s:0,h:2200,k:'d'},{f:6400,t:7200,s:1200,h:2700,k:'w'}]},
+ {o:'h',a0:0,a1:7600,c0:7900,c1:8100,ops:[{f:3800,t:4700,s:0,h:2300,k:'d'}]},
+ {o:'v',a0:8100,a1:10100,c0:1750,c1:1850,ops:[]},
+ {o:'h',a0:0,a1:3600,c0:10100,c1:10300,ops:[{f:700,t:1500,s:0,h:2100,k:'d'}]},
+ {o:'v',a0:8100,a1:13200,c0:3600,c1:3800,ops:[{f:8900,t:9700,s:0,h:2100,k:'d'},{f:10600,t:11400,s:0,h:2100,k:'d'}]},
+ {o:'h',a0:4980,a1:6600,c0:9000,c1:9150,ops:[]},
+ {o:'h',a0:6600,a1:7600,c0:9075,c1:9150,ops:[],hh:1300},
+ {o:'v',a0:9000,a1:10100,c0:4850,c1:4980,ops:[]},
+ {o:'h',a0:4850,a1:7600,c0:10100,c1:10200,ops:[{f:6600,t:7400,s:0,h:2000,k:'d'}]},
+ {o:'v',a0:10200,a1:13200,c0:5850,c1:5950,ops:[{f:10500,t:11300,s:0,h:2100,k:'d'}]},
+ {o:'h',a0:3800,a1:5850,c0:11850,c1:11950,ops:[{f:4100,t:5000,s:0,h:2100,k:'d'}]}
+],
+walls2:[
+ {o:'h',a0:700,a1:7600,c0:-400,c1:0,ops:[{f:1500,t:3300,s:800,h:2400,k:'w'},{f:4800,t:6800,s:700,h:2400,k:'w'}]},
+ {o:'v',a0:-400,a1:4500,c0:300,c1:700,ops:[{f:1500,t:3100,s:800,h:2400,k:'w'}]},
+ {o:'h',a0:0,a1:300,c0:4100,c1:4500,ops:[]},
+ {o:'v',a0:-400,a1:13600,c0:7600,c1:8000,ops:[{f:6300,t:7100,s:1200,h:2300,k:'w'},{f:8700,t:9700,s:0,h:2000,k:'w'}]},
+ {o:'v',a0:4100,a1:14900,c0:-400,c1:0,ops:[{f:5500,t:7100,s:800,h:2400,k:'w'}]},
+ {o:'h',a0:0,a1:3600,c0:14500,c1:14900,ops:[{f:600,t:3000,s:300,h:2600,k:'w'}]},
+ {o:'v',a0:13200,a1:14900,c0:3600,c1:4000,ops:[]},
+ {o:'h',a0:4000,a1:7600,c0:13200,c1:13600,ops:[{f:4600,t:7000,s:0,h:2400,k:'g'}]},
+ {o:'h',a0:0,a1:7600,c0:8100,c1:8250,ops:[{f:2900,t:3600,s:0,h:2100,k:'d'},{f:4100,t:4800,s:0,h:2100,k:'d'}]},
+ {o:'v',a0:4500,a1:8100,c0:3600,c1:3800,ops:[]},
+ {o:'v',a0:0,a1:4350,c0:3600,c1:3800,ops:[{f:900,t:3500,s:0,h:2300,k:'d'}]},
+ {o:'h',a0:700,a1:7600,c0:4350,c1:4500,ops:[{f:4150,t:4950,s:0,h:2100,k:'d'},{f:5900,t:6600,s:0,h:2100,k:'d'}]},
+ {o:'v',a0:4500,a1:8100,c0:5700,c1:5800,ops:[{f:6900,t:7600,s:0,h:2100,k:'d'}]},
+ {o:'v',a0:8250,a1:10100,c0:2700,c1:2800,ops:[{f:9300,t:10000,s:0,h:2100,k:'d'}]},
+ {o:'h',a0:0,a1:7600,c0:10100,c1:10250,ops:[{f:2850,t:3550,s:0,h:2100,k:'d'},{f:3900,t:4700,s:0,h:2100,k:'d'}]},
+ {o:'v',a0:10250,a1:13200,c0:3600,c1:3800,ops:[]}
+],
+floors1:[[0,4500,3600,3400,'t'],[700,0,2900,4500,'w'],[3800,0,3800,7900,'w'],[0,8100,1750,2000,'w'],[1850,8100,1750,2000,'b'],[0,10300,3600,4200,'w'],
+ [3800,8100,1050,2100,'w'],[3800,10200,2050,1650,'w'],[4980,9150,2620,950,'t'],[5950,10200,1650,3000,'t'],[3800,11950,2050,1250,'t']],
+floors2:[[4000,0,3600,4350,'w'],[700,0,3300,4350,'w'],[3800,4500,1900,3600,'w'],[5800,4500,1800,3600,'b'],[0,4500,3600,3600,'w'],[0,8250,2700,1850,'b'],
+ [2800,8250,2050,1850,'w'],[0,10250,3600,4250,'w'],[3800,10250,3800,2950,'w']]
+};
+(function(){
+ /* Всё от замеров с эскиза. XB — граница участков …299/…300 (в 2 м от правой стены дома — обязательный отступ),
+    YF — передний забор …299 (в 4,5 м от фасада). Склад вплотную к левому забору под углом забора. */
+ const XB=10000,YF=19400,dX=XB-9500;
+ const a=Math.atan(0.4531),c=Math.cos(a),s=Math.sin(a),t=s/c,W=5500,L=5600,TE=[XB-10400,YF-18700];
+ const NW=[TE[0]-W*c,TE[1]-W*s],SE=[TE[0]-L*s,TE[1]+L*c],SW=[NW[0]-L*s,NW[1]+L*c];
+ const ex=y=>TE[0]-(y-TE[1])*t,u=[c,s],v=[-s,c],cA=[NW[0]+(L+1000)*v[0],NW[1]+(L+1000)*v[1]];
+ const cp=(k,w)=>[cA[0]+v[0]*k+u[0]*w,cA[1]+v[1]*k+u[1]*w];
+ window.HOUSE.SKLAD={ang:a,W,L,origin:NW,rot:-a,pts:[TE,NW,SW,SE],toFence:[-c,-s],along:[-s,c],ex,u,v,TE,SE,NW,
+  cont:{len:8000,wid:2450,pts:[cp(0,0),cp(0,2450),cp(8000,2450),cp(8000,0)]}};
+ /* левый край веранды остаётся на прежней линии, параллельной складу */
+ const xw=y=>554-(y-600)*t,A=[xw(600),600],Dd=[xw(4100),4100];
+ window.HOUSE.VER={xw,pts:[A,[3600,600],[3600,4100],Dd],
+  roof:[[xw(500)-100,500],[3600,500],[3600,4100],[Dd[0]-100,4100]],steps:[2000,200,1200,400],
+  posts:[[A[0]+75,675],[xw(2350)+75,2350]],
+  rails:[[[A[0]+150,625],[2000,625]],[[3200,625],[3600,625]],[[A[0]+25,600],[Dd[0]+25,4100]],[[Dd[0]+25,4075],[-400,4075]]]};
+ /* забор: левый идёт по задней стене склада, задний угол в 10,6 м от склада вдоль забора;
+    торец с воротами в том же направлении, что по кадастру */
+ const F0=[NW[0]-100*c,NW[1]-100*s],P1=[F0[0]+10600*s,F0[1]-10600*c];
+ const D1=[XB,P1[1]],P2=[XB+16600,P1[1]],P3=[XB+16400,YF+600],D2=[XB,YF],P4=[XB-15900,YF];
+ const dl=Math.hypot(5700,5500),e=[-5700/dl,-5500/dl],rx=F0[0]-P4[0],ry=F0[1]-P4[1];
+ const kk=(-rx*v[1]+v[0]*ry)/(-e[0]*v[1]+v[0]*e[1]),P5=[P4[0]+e[0]*kk,P4[1]+e[1]*kk];
+ const at=d=>[P4[0]+e[0]*d,P4[1]+e[1]*d];
+ const wk=at(6300),st=[5100,15700],gate=[300,4800],G=at((gate[0]+gate[1])/2);
+ let n=[-e[1],e[0]];if((0-G[0])*n[0]+(5000-G[1])*n[1]<0)n=[-n[0],-n[1]];
+ const pdx=st[0]-wk[0],pdy=st[1]-wk[1],pl=Math.hypot(pdx,pdy),pn=[-pdy/pl*600,pdx/pl*600];
+ /* существующий дом 11 × 10 на …300: 2 м от границы, 6 м от переднего забора */
+ const yf=x=>YF+(x-XB)*(P3[1]-YF)/(P3[0]-XB),ox=XB+2000,oy=yf(ox)-6000;
+ window.HOUSE.PLOT={XB,YF,F0,P1,D1,P2,P3,D2,P4,P5,yf,p299:[P1,D1,D2,P4,P5],p300:[D1,P2,P3,D2],
+  fence:[[P1,P2],[P2,P3],[P3,D2],[D2,P4],[P4,P5],[P5,P1]],gate:{wicket:[5800,6800],gate},G,n,e,
+  old:[ox,oy-10000,ox+11000,oy],
+  truck:{R:[150,17650],n:[1,0],rect:[[150,16400],[9450,16400],[9450,18900],[150,18900]]},
+  pad:[[-6400+dX,16100],[XB,16100],[XB,19350],[-6700+dX,19350],[-8300+dX,17800]],
+  path:[[wk[0]+pn[0],wk[1]+pn[1]],[st[0]+pn[0],st[1]+pn[1]],[st[0]-pn[0],st[1]-pn[1]],[wk[0]-pn[0],wk[1]-pn[1]]]};
+ /* фундамент: монолитная плита заподлицо с наружными стенами, рёбра [x, y, по x, по y, глубина под плитой] */
+ window.HOUSE.FUND={top:-100,t:250,
+  contour:[[300,-400],[8000,-400],[8000,13600],[4000,13600],[4000,14900],[-400,14900],[-400,4100],[300,4100]],
+  ribs:[[300,-400,7700,400,400],[7600,0,400,13200,400],[3600,13200,4400,400,400],[3600,13600,400,1300,400],
+   [-400,14500,4000,400,400],[-400,4100,400,10400,400],[0,4100,700,400,400],[300,0,400,4100,400],
+   [3550,0,300,7850,300],[0,7850,7600,300,300],[0,10050,7600,300,300],[3550,8150,300,1900,300],[3550,10350,300,2850,300]],
+  porch:[[4020,13620,3980,1280,200],[4400,14900,1400,600,100],[1000,-1600,2400,1180,200]]};
+})();
+(function(){
+const HS=window.HOUSE,NS='http://www.w3.org/2000/svg';
+const S=0.042,OX=156.8,OY=56.8,X=x=>OX+x*S,Y=y=>OY+y*S;
+function drawPlan(svg,P){
+ function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e;}
+ function R(x,y,w,d,a,p){return el('rect',Object.assign({x:X(x),y:Y(y),width:w*S,height:d*S},a||{}),p);}
+ function T(px,py,s,cls,anc){const e=el('text',{x:px,y:py,'text-anchor':anc||'middle',class:cls});e.textContent=s;}
+ const PT=p=>p.map(q=>X(q[0])+','+Y(q[1])).join(' ');
+ P.floors.forEach(f=>R(f[0],f[1],f[2],f[3],{fill:'var(--floor)'}));
+ (P.polys||[]).forEach(p=>el('polygon',Object.assign({points:PT(p.pts)},p.a)));
+ const gv=el('g',{class:'v'});P.deck.forEach(d=>R(d[0],d[1],d[2],d[3],{},gv));
+ (P.deckPoly||[]).forEach(p=>el('polygon',{points:PT(p)},gv));
+ (P.dash||[]).forEach(d=>R(d[0],d[1],d[2],d[3],{fill:'none',stroke:'var(--muted)','stroke-width':0.8,'stroke-dasharray':'3 3'}));
+ const groups={};const g=c=>groups[c]||(groups[c]=el('g',{class:c}));
+ P.items.forEach(i=>R(i[1],i[2],i[3],i[4],i[5]?{class:'o'}:{},g(i[0])));
+ (P.circ||[]).forEach(c=>el('circle',{cx:X(c[1]),cy:Y(c[2]),r:c[3]*S},g(c[0])));
+ P.stair(el,R,PT,g('f'));
+ P.walls.forEach(w=>{
+  const piece=(a,b)=>{if(b<=a)return;w.o==='h'?R(a,w.c0,b-a,w.c1-w.c0,{fill:'var(--wall)'}):R(w.c0,a,w.c1-w.c0,b-a,{fill:'var(--wall)'});};
+  let cur=w.a0;
+  w.ops.forEach(op=>{piece(cur,op.f);cur=op.t;
+   if(op.k==='w'||op.k==='g'){const m=(w.c0+w.c1)/2,st={fill:'none',stroke:'var(--wall)','stroke-width':1};
+    if(w.o==='h'){R(op.f,w.c0,op.t-op.f,w.c1-w.c0,st);el('line',{x1:X(op.f),x2:X(op.t),y1:Y(m),y2:Y(m),stroke:'var(--wall)','stroke-width':1});}
+    else{R(w.c0,op.f,w.c1-w.c0,op.t-op.f,st);el('line',{x1:X(m),x2:X(m),y1:Y(op.f),y2:Y(op.t),stroke:'var(--wall)','stroke-width':1});}}});
+  piece(cur,w.a1);
+ });
+ (P.rails||[]).forEach(r=>el('line',{x1:X(r[0]),y1:Y(r[1]),x2:X(r[2]),y2:Y(r[3]),stroke:'var(--f-stroke)','stroke-width':1.5}));
+ (P.posts||[]).forEach(p=>R(p[0],p[1],150,150,{fill:'var(--wall)'}));
+ P.labels.forEach(l=>{T(X(l[2]),Y(l[3]),l[0],'rn',l[4]);T(X(l[2]),Y(l[3])+13,l[1]+' м²','ra',l[4]);});
+ (P.notes||[]).forEach(n=>T(X(n[1]),Y(n[2]),n[0],'ts',n[3]));
+ const ln={stroke:'var(--muted)','stroke-width':0.6};
+ function dimH(x1,x2,py,s,ly){el('line',Object.assign({x1:X(x1),x2:X(x2),y1:py,y2:py},ln));[x1,x2].forEach(x=>el('line',Object.assign({x1:X(x),x2:X(x),y1:py-4,y2:py+4},ln)));T((X(x1)+X(x2))/2,ly,s,'ts');}
+ function dimV(y1,y2,px,s){el('line',Object.assign({x1:px,x2:px,y1:Y(y1),y2:Y(y2)},ln));[y1,y2].forEach(y=>el('line',Object.assign({x1:px-4,x2:px+4,y1:Y(y),y2:Y(y)},ln)));T(px+7,(Y(y1)+Y(y2))/2+4,s,'ts','start');}
+ dimH(-400,300,22,'700',16);dimH(300,8000,22,'7700',16);
+ dimV(-400,4100,515,'4500');dimV(4100,14900,515,'10800');dimV(-400,14900,575,'15300');
+ dimH(-400,8000,735,'8400',750);
+}
+const chairs=(cls,xs,y1,y2)=>{const a=[];xs.forEach(c=>{a.push([cls,c-225,y1,450,450]);if(y2!=null)a.push([cls,c-225,y2,450,450]);});return a;};
+const stairTreads=(g,R,solid2)=>{
+ for(let i=0;i<7;i++)R(4850+i*250,8100,250,900,{},g);
+ for(let j=0;j<7;j++)R(4850+j*250,9150,250,950,solid2?{}:{fill:'none',stroke:'var(--f-stroke)','stroke-width':0.8,'stroke-dasharray':'3 2'},solid2?g:null);
+};
+const winders=(el,PT,g)=>{const C=[6600,9075];[[[6600,8100],[7600,8100]],[[7600,8100],[7600,9075]],[[7600,9075],[7600,10100]],[[7600,10100],[6600,10100]]].forEach(w=>el('polygon',{points:PT([C,w[0],w[1]])},g));};
+drawPlan(document.getElementById('plan1'),{
+ walls:HS.walls1,floors:HS.floors1,
+ polys:[{pts:HS.SKLAD.pts,a:{fill:'url(#hatch)',stroke:'var(--wall)','stroke-width':1.5}}],
+ deck:[[4000,13600,4000,1300],[4400,14900,1400,600]],
+ dash:[[4700,4600,2900,2900],[4400,200,2800,2000]],
+ items:[
+  ['f',0,8100,600,2000],['f',600,8100,1150,450],['f',1850,8100,1700,700],['f',1850,9600,650,380],['f',2800,9650,600,450],
+  ['f',0,11500,2000,1600],['f',0,11000,450,450],['f',0,13150,450,450],['f',3100,12000,500,1200],['f',2600,13600,700,700],
+  ['f',5250,11950,600,1250],['f',7300,11000,300,450],['f',6000,12600,600,600],['f',6600,12600,600,600],
+  ['k',0,4500,600,600],['k',0,5100,600,600],['k',0,5700,600,2200],['k',600,7300,2100,600],['k',1500,5400,1500,900],
+  ['k',80,6200,440,600,1],['k',1350,7300,600,600,1],
+  ['d',1650,700,1000,2200],...[925,1575,2225].flatMap(y=>[['d',1150,y,450,450],['d',2700,y,450,450]]),['d',1925,200,450,450],['d',1925,2950,450,450],
+  ['l',6650,4700,950,2700],['l',7400,4700,200,2700],['l',4900,4700,1750,950],['l',4900,4700,1750,200],['l',4900,6450,1750,950],['l',4900,7200,1750,200],
+  ['l',5200,5750,1200,600],['l',3800,5300,60,1500],['l',4600,300,700,700],['l',4600,300,700,160],['l',6000,300,700,700],['l',6000,300,700,160],['l',7200,1300,400,2400]],
+ circ:[['f',7300,11900,250],['l',7250,7650,200],['l',5650,1500,300]],
+ stair:(el,R,PT,g)=>{stairTreads(g,R,false);winders(el,PT,g);
+  el('polyline',{points:PT([[4950,8550],[6600,8550],[7150,9075],[6700,9560]]),fill:'none',stroke:'var(--muted)','stroke-width':1});
+  el('polygon',{points:PT([[6760,9480],[6620,9640],[6640,9440]]),fill:'var(--muted)'});},
+ labels:[['1 Кухня-столовая','25,29',2150,3850],['2 Гостиная','30,02',5700,2800],['3 Гардероб','3,50',875,9250],['4 Санузел','3,50',2725,9150],['5 Спальня','15,12',1800,10850],
+  ['6 Коридор','7,73',4825,10850],['7 Кладовка','2,50',5700,9450],['8 Бойлерная','4,46',6775,10650],['9 Тамбур','2,56',4550,12450],
+  ['10 Крыльцо','5,20',6300,14350]],
+ notes:[['склад',-2400,3100,'middle'],['раздвижные двери',3950,4150,'start'],['ТВ',3950,6150,'start'],['кухня',2250,5150,'middle']]
+});
+(function site(){
+ /* план участков в ориентации эскиза: задний забор сверху, граница с …300 справа от дома */
+ const svg=document.getElementById('site'),K=HS.SKLAD,PL=HS.PLOT,V=HS.VER,O=PL.old,FD=HS.FUND;
+ const S2=0.0165,x0=-15600,y0=-13300,X2=x=>(x-x0)*S2,Y2=y=>(y-y0)*S2;
+ svg.setAttribute('viewBox','0 0 '+Math.round((28600-x0)*S2)+' '+Math.round((21900-y0)*S2));
+ const el=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e;};
+ const P=p=>p.map(q=>X2(q[0])+','+Y2(q[1])).join(' ');
+ const T=(x,y,s,cls,anc,col,dy)=>{const e=el('text',{x:X2(x),y:Y2(y)+(dy||0),'text-anchor':anc||'middle',class:cls});if(col)e.style.fill=col;e.textContent=s;return e;};
+ el('polygon',{points:P(PL.p300),fill:'var(--lawn2)'});el('polygon',{points:P(PL.p299),fill:'var(--lawn)'});
+ el('line',{x1:X2(PL.D1[0]),y1:Y2(PL.D1[1]),x2:X2(PL.D2[0]),y2:Y2(PL.D2[1]),stroke:'var(--muted)','stroke-width':1,'stroke-dasharray':'6 5'});
+ PL.fence.forEach(f=>el('line',{x1:X2(f[0][0]),y1:Y2(f[0][1]),x2:X2(f[1][0]),y2:Y2(f[1][1]),stroke:'var(--ink)','stroke-width':2.5,'stroke-linecap':'round'}));
+ const along=(p,q,d)=>{const L=Math.hypot(q[0]-p[0],q[1]-p[1]);return [p[0]+(q[0]-p[0])*d/L,p[1]+(q[1]-p[1])*d/L];};
+ [PL.gate.gate,PL.gate.wicket].forEach(g=>{const a=along(PL.P4,PL.P5,g[0]),b=along(PL.P4,PL.P5,g[1]);el('line',{x1:X2(a[0]),y1:Y2(a[1]),x2:X2(b[0]),y2:Y2(b[1]),stroke:'var(--accent)','stroke-width':6});});
+ el('polygon',{points:P(PL.pad),fill:'#5a5c60',stroke:'none'});
+ el('polygon',{points:P(PL.truck.rect),fill:'var(--f-fill)',stroke:'var(--ink)','stroke-width':1.2});
+ {const c=PL.truck.rect.reduce((a,p)=>[a[0]+p[0]/4,a[1]+p[1]/4],[0,0]);T(c[0],c[1]+150,'Атего, кузов 7 м','ra');}
+ el('polygon',{points:P(PL.path),fill:'var(--deck)',stroke:'none'});
+ el('polygon',{points:P(FD.contour),fill:'var(--f-fill)',stroke:'var(--wall)','stroke-width':1.5});
+ [[4000,13600,4000,1300],[4400,14900,1400,600],FD.porch[2]].forEach(r=>el('rect',{x:X2(r[0]),y:Y2(r[1]),width:r[2]*S2,height:r[3]*S2,fill:'var(--deck)',stroke:'var(--f-stroke)','stroke-width':0.8}));
+ el('polygon',{points:P(K.pts),fill:'url(#hatch)',stroke:'var(--wall)','stroke-width':1.5});
+ el('polygon',{points:P(K.cont.pts),fill:'var(--f-fill)',stroke:'var(--wall)','stroke-width':1.2});
+ el('rect',{x:X2(O[0]),y:Y2(O[1]),width:(O[2]-O[0])*S2,height:(O[3]-O[1])*S2,fill:'var(--old)',stroke:'var(--muted)','stroke-width':1.5});
+ el('line',{x1:X2(O[0]+7600),x2:X2(O[0]+7600),y1:Y2(O[1]),y2:Y2(O[3]),stroke:'var(--muted)','stroke-width':1,'stroke-dasharray':'5 4'});
+ el('rect',{x:X2(O[0]+3000),y:Y2(O[3]),width:4700*S2,height:2000*S2,fill:'var(--deck)',stroke:'var(--f-stroke)','stroke-width':0.8});
+ el('rect',{x:X2(O[0]+700),y:Y2(O[3])-1.5,width:2500*S2,height:3,fill:'var(--ink)'});
+ const A='var(--accent)',M='var(--muted)';
+ T(5850,9000,'Новый дом','rn');T(5850,9800,'2 этажа','ra');
+ T(6000,14450,'крыльцо','ra');
+ {const c=K.pts.reduce((a,p)=>[a[0]+p[0]/4,a[1]+p[1]/4],[0,0]);T(c[0],c[1]-300,'Склад','rn');T(c[0],c[1]+500,'5,5 × 5,6','ts halo','middle',A);}
+ {const q=K.cont.pts.reduce((a,p)=>[a[0]+p[0]/4,a[1]+p[1]/4],[0,0]);T(q[0],q[1]-100,'вагончик','ra');T(q[0],q[1]+700,'8 × 2,4','ra');}
+ {const cx=O[0]+3700,cy=(O[1]+O[3])/2;T(cx,cy-700,'Дом, уже стоит','rn');T(cx,cy+100,'11 × 10','ts','middle',A);T(cx,cy+900,'2 этажа, гараж','ra');
+  const e=T(O[0]+7400,O[1]+1700,'конёк','ra');e.setAttribute('transform','rotate(-90 '+e.getAttribute('x')+' '+e.getAttribute('y')+')');
+  T(O[0]+1950,O[3]-500,'гараж','ra');}
+ T(-500,-8600,'участок …299','rn','start');T(-500,-7800,'строимся здесь','ra','start');
+ T(17800,-7000,'участок …300','rn');T(17800,-6200,'без забора со стороны …299','ra');
+ {const gx=PL.G[0]-PL.n[0]*2600,gy=PL.G[1]-PL.n[1]*2600;T(gx,gy,'ворота 4,5','rn');T(gx,gy,'калитка 1,0','rn','middle',null,14);}
+ /* размерная линия: o — отступ вбок в мм, lp — [x, y, привязка, повернуть] для подписи */
+ const dim=(p,q,lab,o,col,lp)=>{
+  const dx=q[0]-p[0],dy=q[1]-p[1],L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L,nx=-uy,ny=ux;
+  const a=[p[0]+nx*o,p[1]+ny*o],b=[q[0]+nx*o,q[1]+ny*o];
+  if(o)[[p,a],[q,b]].forEach(([m,k])=>el('line',{x1:X2(m[0]),y1:Y2(m[1]),x2:X2(k[0]+nx*150*Math.sign(o)),y2:Y2(k[1]+ny*150*Math.sign(o)),stroke:col,'stroke-width':0.5}));
+  el('line',{x1:X2(a[0]),y1:Y2(a[1]),x2:X2(b[0]),y2:Y2(b[1]),stroke:col,'stroke-width':1});
+  [a,b].forEach(m=>el('line',{x1:X2(m[0])-3*(ux+nx),y1:Y2(m[1])-3*(uy+ny),x2:X2(m[0])+3*(ux+nx),y2:Y2(m[1])+3*(uy+ny),stroke:col,'stroke-width':1.2}));
+  const e=lp?T(lp[0],lp[1],lab,'ts halo',lp[2]||'middle',col):T((a[0]+b[0])/2,(a[1]+b[1])/2,lab,'ts halo','middle',col,-4);
+  if(lp&&lp[3])e.setAttribute('transform','rotate(-90 '+e.getAttribute('x')+' '+e.getAttribute('y')+')');
+ };
+ const TE=K.TE,SE=K.SE,XB=PL.XB,YF=PL.YF,f1=v=>(v/1000).toFixed(1).replace('.',',');
+ dim(PL.P1,PL.F0,'10,6',700,A,[-5200,-6500,'end']);
+ dim(TE,[XB,TE[1]],f1(XB-TE[0]),0,A,[5600,520]);
+ dim(SE,[XB,SE[1]],f1(XB-SE[0]),0,A,[-1800,5620]);
+ dim([XB,TE[1]],[XB,YF],f1(YF-TE[1]),250,A,[XB-450,10050,'middle',1]);
+ dim(SE,[SE[0],YF],f1(YF-SE[1]),0,A,[SE[0]+150,12700,'start']);
+ dim([XB,O[3]+900],[O[0],O[3]+900],f1(O[0]-XB),0,A,[(XB+O[0])/2,14200]);
+ dim([O[0]+800,O[3]],[O[0]+800,PL.yf(O[0]+800)],f1(PL.yf(O[0]+800)-O[3]),0,A,[O[0]+950,16500,'start']);
+ dim([8000,2000],[XB,2000],f1(XB-8000),0,A);
+ dim([-1200,14900],[-1200,YF],f1(YF-14900),0,M,[-1050,15650,'start']);
+ dim([8000,12200],[O[0],12200],f1(O[0]-8000),0,M);
+ dim(TE,[300,TE[1]],f1(300-TE[0]),0,M,[-50,1250]);
+ /* размеры домов: у нового — внутри контура и над выступом, у дома на …300 — внутри */
+ dim([-400,13000],[8000,13000],f1(8400),0,M,[1800,12850]);
+ dim([3680,-400],[3680,4100],f1(4500),0,M,[4380,1850,'middle',1]);dim([3680,4100],[3680,14900],f1(10800),0,M,[4380,7000,'middle',1]);
+ dim([300,-400],[8000,-400],f1(7700),-1500,M);
+ dim([-400,14450],[4000,14450],f1(4400),0,M);
+ dim([O[0],O[3]-1500],[O[2],O[3]-1500],f1(O[2]-O[0]),0,A);
+ dim([O[2]-800,O[1]],[O[2]-800,O[3]],f1(O[3]-O[1]),0,A,[O[2]-950,(O[1]+O[3])/2,'middle',1]);
+ /* длины заборов и границы */
+ const hy=(p,q)=>Math.hypot(q[0]-p[0],q[1]-p[1]);
+ const fl=(p,q,dx,dy,rot)=>{const e=T((p[0]+q[0])/2+dx,(p[1]+q[1])/2+dy,f1(hy(p,q)),'ts halo','middle',M);if(rot)e.setAttribute('transform','rotate(-90 '+e.getAttribute('x')+' '+e.getAttribute('y')+')');};
+ fl(PL.P1,PL.D1,0,-450);fl(PL.D1,PL.P2,0,-450);fl(PL.P2,PL.P3,700,0,1);fl(PL.P3,PL.D2,0,900);fl(PL.D2,PL.P4,0,900);
+ {const e=T(XB+650,-5500,f1(YF-PL.P1[1]),'ts halo','middle',M);e.setAttribute('transform','rotate(-90 '+e.getAttribute('x')+' '+e.getAttribute('y')+')');}
+ T(PL.P4[0]+PL.e[0]*7300-PL.n[0]*900,PL.P4[1]+PL.e[1]*7300-PL.n[1]*900,f1(hy(PL.P4,PL.P5)),'ts halo','end',M);
+ /* цепочка вдоль левого забора: до склада, склад, зазор, вагончик, остаток до угла у ворот */
+ const F0=PL.F0,vv=K.v,Fp=d=>[F0[0]+vv[0]*d,F0[1]+vv[1]*d],LF=hy(F0,PL.P5),no=[-vv[1],vv[0]];
+ const chain=(d0,d1,lab,col)=>{const m=Fp((d0+d1)/2);dim(Fp(d0),Fp(d1),lab,700,col,[m[0]+no[0]*1500,m[1]+no[1]*1500+250,'end']);};
+ chain(0,K.L,f1(K.L),A);chain(K.L,K.L+1000,'1,0',M);chain(K.L+1000,K.L+9000,'8,0',M);chain(K.L+9000,LF,f1(LF-K.L-9000),M);
+ /* дома — до заднего и правого забора */
+ dim([7300,PL.P1[1]],[7300,-400],f1(-400-PL.P1[1]),0,M,[7100,-5800,'middle',1]);
+ el('line',{x1:X2(O[2]),x2:X2(24150),y1:Y2(O[1]),y2:Y2(O[1]),stroke:M,'stroke-width':0.5});
+ dim([24000,PL.P1[1]],[24000,O[1]],f1(O[1]-PL.P1[1]),0,M,[23800,-3400,'middle',1]);
+ const xr=PL.P2[0]+(9000-PL.P2[1])*(PL.P3[0]-PL.P2[0])/(PL.P3[1]-PL.P2[1]);
+ dim([O[2],9000],[xr,9000],f1(xr-O[2]),0,M);
+ /* ведомость всех размеров */
+ const cc=Math.cos(K.ang);
+ const groups=[
+  ['Участки',[['Задний забор …299',f1(XB-PL.P1[0]),'расчёт'],['Левый забор',f1(10600+LF),'расчёт'],['Торец с воротами',f1(hy(PL.P4,PL.P5)),'перемерить'],
+   ['Передний забор …299',f1(hy(PL.D2,PL.P4)),'кадастр'],['Граница …299 / …300',f1(YF-PL.P1[1]),'расчёт'],['Задний забор …300',f1(hy(PL.D1,PL.P2)),'кадастр'],
+   ['Правый забор …300',f1(hy(PL.P2,PL.P3)),'расчёт'],['Передний забор …300',f1(hy(PL.P3,PL.D2)),'кадастр']]],
+  ['Постройки',[['Новый дом','8,4 × 15,3','проект'],['Выступ дома','7,7 × 4,5','проект'],['Площадка у двери в сад','2,4 × 1,2','проект'],['Крыльцо','4,0 × 1,3','проект'],
+   ['Склад',f1(K.W)+' × '+f1(K.L),'замер'],['Вагончик','8,0 × 2,4','проект'],['Дом на …300, 2 этажа','11 × 10','замер']]],
+  ['Новый дом — привязка',[['До границы с …300',f1(XB-8000),'от вас'],['До переднего забора',f1(YF-14900),'проект'],['До заднего забора',f1(-400-PL.P1[1]),'расчёт'],
+   ['До дома на …300',f1(O[0]-8000),'расчёт'],['Выступ — угол склада',f1(300-TE[0]),'расчёт'],['Передний угол склада — стена дома',f1(-400-SE[0]),'расчёт']]],
+  ['Склад и вагончик',[['Задний угол участка — склад, вдоль забора','10,6','замер'],['Задний угол склада — граница',f1(XB-TE[0]),'замер'],
+   ['Передний угол склада — граница',f1(XB-SE[0]),'замер: 12,8'],['От заднего угла склада вдоль границы до переднего забора',f1(YF-TE[1]),'замер'],
+   ['Передний угол склада — передний забор',f1(YF-SE[1]),'замер: 13,5'],['Склад — вагончик','1,0','проект'],['Вагончик — угол у ворот',f1(LF-K.L-9000),'расчёт']]],
+  ['Дом на …300 и въезд',[['Дом на …300 — граница',f1(O[0]-XB),'замер'],['Дом на …300 — передний забор',f1(PL.yf(O[0])-O[3]),'замер'],['Дом на …300 — правый забор',f1(xr-O[2]),'расчёт'],
+   ['Дом на …300 — задний забор',f1(O[1]-PL.P1[1]),'расчёт'],['Ворота, в 0,3 от угла','4,5','проект'],['Калитка, через 1,0 после ворот','1,0','проект'],
+   ['Конёк дома на …300 от левой стены','7,6','по фото'],['Карниз / конёк дома на …300','5,0 / 7,6','по фото'],
+   ['Атего — передний забор','0,5','проект'],['Атего — фасад дома','1,5','проект']]]];
+ const box=document.getElementById('dims');
+ groups.forEach(([cap,rows])=>{const card=document.createElement('div');card.className='card';const t=document.createElement('table');t.className='dt';
+  t.createCaption().textContent=cap;
+  rows.forEach(r=>{const tr=t.insertRow();tr.insertCell().textContent=r[0].replace(/ …(\d+)/g,'\u00a0…\u2060$1');const v=tr.insertCell();v.className='v';v.textContent=r[1];const sc=tr.insertCell();sc.textContent=r[2];if(r[2].startsWith('замер')||r[2]==='от вас')sc.className='m';});
+  card.appendChild(t);box.appendChild(card);});
+})();
+drawPlan(document.getElementById('plan2'),{
+ walls:HS.walls2,floors:HS.floors2,
+ deck:[[4000,13600,4000,1300]],
+ rails:[[4000,14870,8000,14870],[7970,13600,7970,14870],[4850,8250,4850,9150]],
+ dash:[[4800,1300,2400,2200],[4850,8250,2750,1850]],
+ items:[['f',5600,1500,2000,1800],['f',7150,1000,450,450],['f',7150,3350,450,450],['f',1500,3850,1800,500],['f',1900,450,700,700],['f',2900,450,700,700],['f',700,1300,600,1700],['f',1300,1925,450,450],
+  ['f',5100,4500,600,3600],['f',6700,5000,900,1200],['f',5900,7600,1000,500],['f',6950,6350,650,380],
+  ['f',1600,5500,2000,1600],['f',3150,5000,450,450],['f',3150,7150,450,450],['f',1000,4500,2100,600],['f',0,4700,600,1200],['f',600,5075,450,450],
+  ['f',0,8300,700,1700],['f',1100,8250,600,450],['f',2100,8250,600,600],['f',1300,9450,380,650],
+  ['f',0,11600,2000,1600],['f',0,11100,450,450],['f',0,13250,450,450],['f',3000,11500,600,2000],['f',2400,13700,700,700],
+  ['f',6900,11000,700,1600],['f',6400,11575,450,450],['f',3800,11000,900,2000],['f',5000,10250,1800,400],
+  ...chairs('f',[5125,6275],13900)],
+ circ:[['f',5700,14250,350],['f',2750,1650,350]],
+ stair:(el,R,PT,g)=>{stairTreads(g,R,true);winders(el,PT,g);},
+ labels:[['1 Мастер-спальня','29,67',5700,3950],['2 Гардеробная','6,84',4900,6300],['3 Санузел','6,48',6450,7100],['4 Спальня','12,96',1500,7650],
+  ['5 Санузел','5,00',1500,9000],['6 Коридор','8,88',3800,9300],['7 Спальня','15,30',1800,10900],['8 Кабинет','11,21',5600,11900],['9 Балкон','5,20',7200,14300]],
+ notes:[['проём лестницы',6225,10030,'middle'],['зона отдыха',2250,2750,'middle']]
+});
+(function found(){
+ const svg=document.getElementById('fplan'),F=HS.FUND,V=HS.VER,PL=HS.PLOT;
+ const el=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e;};
+ const R=(x,y,w,d,a)=>el('rect',Object.assign({x:X(x),y:Y(y),width:w*S,height:d*S},a));
+ const T=(px,py,s,cls,anc,col)=>{const e=el('text',{x:px,y:py,'text-anchor':anc||'middle',class:cls});if(col)e.style.fill=col;e.textContent=s;return e;};
+ const PT=p=>p.map(q=>X(q[0])+','+Y(q[1])).join(' ');
+ const ln=c=>({stroke:c||'var(--muted)','stroke-width':0.6});
+ const dH=(x1,x2,py,s)=>{el('line',Object.assign({x1:X(x1),x2:X(x2),y1:py,y2:py},ln()));[x1,x2].forEach(x=>el('line',Object.assign({x1:X(x),x2:X(x),y1:py-4,y2:py+4},ln())));T((X(x1)+X(x2))/2,py-4,s,'ts');};
+ const dV=(y1,y2,px,s,anc)=>{el('line',Object.assign({x1:px,x2:px,y1:Y(y1),y2:Y(y2)},ln()));[y1,y2].forEach(y=>el('line',Object.assign({x1:px-4,x2:px+4,y1:Y(y),y2:Y(y)},ln())));T(px+(anc==='end'?-6:6),(Y(y1)+Y(y2))/2+4,s,'ts',anc||'start');};
+ const ext=(x1,y1,x2,y2)=>el('line',Object.assign({x1,y1,x2,y2},ln()));
+ /* граница участков и передний забор — для привязки */
+ el('line',{x1:X(PL.XB),x2:X(PL.XB),y1:Y(-400)-10,y2:Y(PL.YF),stroke:'var(--muted)','stroke-width':1,'stroke-dasharray':'6 5'});
+ {const e=T(X(PL.XB)-5,Y(17100),'граница с …300','ts');e.setAttribute('transform','rotate(-90 '+e.getAttribute('x')+' '+e.getAttribute('y')+')');}
+ el('line',{x1:X(-1600),x2:X(PL.XB),y1:Y(PL.YF),y2:Y(PL.YF),stroke:'var(--ink)','stroke-width':2.5,'stroke-linecap':'round'});
+ T(X(4000),Y(PL.YF)-7,'передний забор','ts');
+ /* плита, рёбра под ней пунктиром, отдельная плита крыльца */
+ el('polygon',{points:PT(F.contour),fill:'var(--conc)',stroke:'var(--wall)','stroke-width':1.6});
+ F.ribs.forEach(r=>R(r[0],r[1],r[2],r[3],{fill:'var(--rib)',stroke:'var(--wall)','stroke-width':0.7,'stroke-dasharray':'4 2'}));
+ F.porch.forEach(r=>R(r[0],r[1],r[2],r[3],{fill:'var(--conc)',stroke:'var(--wall)','stroke-width':1}));
+ T(X(3800),Y(5900),'Монолитная плита 250 мм','rn');T(X(3800),Y(5900)+14,'120,2 м² · верх −0,100','ra');
+ T(X(7450),Y(2000)+4,'Р1 400 × 400','ts','end');T(X(1800),Y(7850)-5,'Р2 300 × 300','ts');
+ T(X(6000),Y(14150),'Крыльцо','rn');T(X(2200),Y(-1010),'Площадка в сад','rn');T(X(2200),Y(-1010)+13,'плита 200','ra');T(X(6000),Y(14150)+13,'плита 200, через шов','ra');
+ /* размеры */
+ dH(-400,300,-40,'700');dH(300,8000,-40,'7700');
+ const pb=Y(15500)+26;dH(-400,3700,pb,'4100');dH(3700,8000,pb,'4300');dH(-400,8000,pb+24,'8400');
+ [8000,10200].forEach(y=>ext(96,Y(y),X(0),Y(y)));ext(96,Y(14900),X(-400),Y(14900));ext(96,Y(4100),X(-400),Y(4100));
+ dV(4100,8000,100,'3900','end');dV(8000,10200,100,'2200','end');dV(10200,14900,100,'4700','end');dV(14900,PL.YF,100,'4500','end');
+ dV(-400,4100,598,'4500');dV(4100,13600,598,'9500');dV(13600,14900,598,'1300');dV(-400,14900,660,'15300','end');
+ dH(8000,PL.XB,Y(9000),String(PL.XB-8000));
+})();
+(function sec(){
+ /* узел края плиты: x — от наружной грани стены внутрь, z — от чистого пола, мм */
+ const svg=document.getElementById('fsec'),k=0.15,xs=x=>200+(x+800)*k,zs=z=>30+(450-z)*k;
+ const el=(t,a)=>{const e=document.createElementNS(NS,t);for(const n in a)e.setAttribute(n,a[n]);svg.appendChild(e);return e;};
+ const P=p=>p.map(q=>xs(q[0])+','+zs(q[1])).join(' ');
+ const poly=(p,fill,a)=>el('polygon',Object.assign({points:P(p),fill,stroke:'var(--wall)','stroke-width':0.8},a||{}));
+ const T=(x,y,s,cls,anc)=>{const e=el('text',{x,y,'text-anchor':anc||'middle',class:cls});e.textContent=s;return e;};
+ T(16,22,'Край плиты в разрезе','rn','start');
+ poly([[-800,-350],[1000,-350],[1000,-1250],[-800,-1250]],'var(--soil)',{stroke:'none'});
+ poly([[-400,-850],[500,-850],[500,-450],[1000,-450],[1000,-750],[750,-750],[620,-1150],[-400,-1150]],'var(--sand)');
+ poly([[-100,-100],[-100,-850],[500,-850],[500,-450],[1000,-450],[1000,-350],[400,-350],[400,-750],[0,-750],[0,-100]],'var(--xps)');
+ poly([[-800,-400],[-100,-400],[-100,-350],[-800,-350]],'var(--xps)');
+ poly([[-800,-350],[-100,-350],[-100,-280],[-800,-310]],'var(--f-fill)');
+ poly([[0,-100],[1000,-100],[1000,-350],[400,-350],[400,-750],[0,-750]],'var(--conc)',{'stroke-width':1.4});
+ [-145,-305].forEach(z=>el('line',{x1:xs(40),x2:xs(1000),y1:zs(z),y2:zs(z),stroke:'var(--k-stroke)','stroke-width':1}));
+ el('rect',{x:xs(45),y:zs(-305),width:310*k,height:400*k,fill:'none',stroke:'var(--k-stroke)','stroke-width':1});
+ [[60,-320],[340,-320],[60,-690],[340,-690]].forEach(p=>el('circle',{cx:xs(p[0]),cy:zs(p[1]),r:1.8,fill:'var(--k-stroke)'}));
+ poly([[400,-100],[1000,-100],[1000,0],[400,0]],'var(--floor)');
+ poly([[0,-100],[400,-100],[400,450],[0,450]],'var(--wall)');
+ T(xs(-450),zs(-280)-6,'отмостка','ts');T(xs(-650),zs(-900),'грунт','ts');
+ [[0,'±0,000 пол'],[-100,'−0,100 верх плиты'],[-350,'−0,350 земля'],[-750,'−0,750 низ рёбер'],[-1150,'−1,150 низ подушки']].forEach(([z,s])=>{
+  el('line',{x1:152,x2:xs(-800),y1:zs(z),y2:zs(z),stroke:'var(--muted)','stroke-width':0.6});
+  el('polygon',{points:(180)+','+zs(z)+' '+(175)+','+(zs(z)-6)+' '+(185)+','+(zs(z)-6),fill:'var(--muted)'});
+  T(148,zs(z)+4,s,'ts','end');});
+ [[200,250,60,'стена 400'],[800,-50,92,'стяжка и пол 100'],[800,-225,110,'плита 250'],[800,-400,150,'ЭППС 100'],[250,-550,180,'ребро 400 × 400'],[820,-600,212,'подушка 300'],[870,-305,128,'арматура — по расчёту']]
+  .forEach(([x,z,ty,s],i)=>{const px=xs(x),py=zs(z);
+   el('polyline',{points:px+','+py+' 480,'+ty+' 492,'+ty,fill:'none',stroke:i===6?'var(--k-stroke)':'var(--muted)','stroke-width':0.6});
+   el('circle',{cx:px,cy:py,r:1.8,fill:i===6?'var(--k-stroke)':'var(--muted)'});T(496,ty+4,s,'ts','start');});
+})();
+})();
+</script>
+<script>
+(function(){
+const HS=window.HOUSE;
+const msg=document.getElementById('msg');
+const state={floor:2,tab:'v3',view:'front',cut:false,roof:true};
+const VIEWS={1:[['all','Общий вид'],['top','Сверху'],['front','Со стороны входа'],['nw','Со стороны склада'],['site','Участок и склад'],['truck','Ворота и Атего'],['old','Дом на …300'],['dining','Столовая'],['living','Гостиная'],['kitchen','Из кухни'],['corridor','Коридор'],['stair','Лестница'],['stairtop','Лестница сверху'],['bedroom','Спальня']],
+ 2:[['front','Со стороны входа'],['nw','Со стороны склада'],['site','Участок и склад'],['truck','Ворота и Атего'],['old','Дом на …300'],['all2','Общий вид'],['top2','Сверху'],['master','Мастер-спальня'],['lounge','Мастер: зона отдыха'],['closet','Гардеробная'],['nwbed','Спальня у склада'],['swbed','Спальня у входа'],['corridor2','Коридор и лестница'],['cabinet','Кабинет'],['balcony','Балкон']],
+ 0:[['fall','Общий вид'],['ftop','Сверху'],['ffront','Со стороны входа'],['fnw','Со стороны склада'],['fbelow','Снизу, рёбра']]};
+const viewsBar=document.getElementById('views'),hint=document.getElementById('hint');
+let api=null;
+function renderViews(){
+ viewsBar.innerHTML='';
+ VIEWS[state.floor].forEach(v=>{const b=document.createElement('button');b.id='v-'+v[0];b.textContent=v[1];b.setAttribute('aria-pressed',v[0]===state.view);b.onclick=()=>{state.view=v[0];renderViews();api&&api.go(v[0]);};viewsBar.appendChild(b);});
+ if(state.floor===0)return;
+ const s=document.createElement('span');s.className='sep';viewsBar.appendChild(s);
+ const c=document.createElement('button');c.id='v-cut';c.textContent='Срез стен';c.setAttribute('aria-pressed',state.cut);c.onclick=()=>{state.cut=!state.cut;renderViews();api&&api.cut(state.cut);};viewsBar.appendChild(c);
+}
+const roofBtn=document.getElementById('roof-btn');
+function syncRoof(){roofBtn.setAttribute('aria-pressed',state.roof&&state.floor===2);roofBtn.disabled=state.floor!==2;}
+function applyFloor(){
+ document.querySelectorAll('#floors button[data-f]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.f===state.floor));
+ ['0','1','2'].forEach(n=>['plan','t'].forEach(p=>document.getElementById(p+n).toggleAttribute('hidden',+n!==state.floor)));
+ syncRoof();
+}
+document.querySelectorAll('#floors button[data-f]').forEach(b=>b.addEventListener('click',()=>{
+ state.floor=+b.dataset.f;state.view=['fall','all','all2'][state.floor];applyFloor();renderViews();if(api){api.floor(state.floor);api.go(state.view);}
+}));
+roofBtn.addEventListener('click',()=>{state.roof=!state.roof;syncRoof();api&&api.roof();});
+document.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',()=>{
+ state.tab=b.dataset.t;document.querySelectorAll('#tabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+ ['v3','plan','sitetab'].forEach(id=>document.getElementById(id).hidden=state.tab!==id);
+ if(state.tab==='v3'&&api)api.resize();
+}));
+applyFloor();renderViews();
+
+const fail=()=>{msg.textContent='Не удалось загрузить 3D-движок. Обнови страницу. Планы доступны на вкладке «План и экспликация».';};
+const addScript=(src,ok,bad)=>{const sc=document.createElement('script');sc.src=src;sc.async=true;sc.onload=ok;sc.onerror=bad;document.body.appendChild(sc);};
+const tm=setTimeout(()=>{if(!window.THREE)msg.textContent='3D-модель ещё загружается… Планы уже доступны на вкладке «План и экспликация».';},6000);
+const boot=()=>{clearTimeout(tm);if(window.THREE)go();else fail();};
+if(window.THREE)go();else addScript('https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',boot,()=>addScript('three.min.js',boot,fail));
+function go(){
+const box=document.getElementById('cv');
+let renderer;
+try{renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});}catch(e){msg.textContent='Браузер не поддерживает WebGL. Открой страницу в Chrome, Safari или Firefox. Планы доступны на второй вкладке.';return;}
+msg.remove();
+const W=()=>box.clientWidth||640,HH=()=>box.clientHeight||480;
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));renderer.setSize(W(),HH(),false);
+renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+box.appendChild(renderer.domElement);const cv=renderer.domElement;
+const scene=new THREE.Scene();
+const camera=new THREE.PerspectiveCamera(55,W()/HH(),0.05,150);
+scene.add(new THREE.HemisphereLight(0xffffff,0x9c9482,0.62));
+const sun=new THREE.DirectionalLight(0xfff2dc,0.85);sun.position.set(-4,18,16);sun.target.position.set(3.8,0,7.3);
+scene.add(sun);scene.add(sun.target);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
+Object.assign(sun.shadow.camera,{left:-24,right:24,top:24,bottom:-24,near:1,far:80});sun.shadow.bias=-0.0005;sun.shadow.normalBias=0.02;
+const mats={};
+const mat=(c,o)=>{const k=c+JSON.stringify(o||{});return mats[k]||(mats[k]=new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:0.85,metalness:0},o||{})));};
+const glass=new THREE.MeshStandardMaterial({color:'#a9d3ee',transparent:true,opacity:0.28,roughness:0.1,metalness:0.1});
+const poly=new THREE.MeshStandardMaterial({color:'#e3edf0',transparent:true,opacity:0.35,roughness:0.3});
+const mm=v=>v/1000;
+let G=scene;
+function B(x,y,w,d,z,h,c,parent,o){if(w<=0||d<=0||h<=0)return null;
+ const me=new THREE.Mesh(new THREE.BoxGeometry(mm(w),mm(h),mm(d)),o&&o.isMaterial?o:mat(c,o));
+ me.position.set(mm(x+w/2),mm(z+h/2),mm(y+d/2));me.castShadow=true;me.receiveShadow=true;(parent||G).add(me);return me;}
+function Gl(x,y,w,d,z,h,parent){const m=B(x,y,w,d,z,h,null,parent,glass);if(m)m.castShadow=false;return m;}
+function Cyl(x,y,r,z,h,c){const me=new THREE.Mesh(new THREE.CylinderGeometry(mm(r),mm(r),mm(h),24),mat(c));me.position.set(mm(x),mm(z+h/2),mm(y));me.castShadow=true;me.receiveShadow=true;G.add(me);return me;}
+const gnd=new THREE.Mesh(new THREE.PlaneGeometry(90,90),mat('#cfcabd'));gnd.rotation.x=-Math.PI/2;gnd.position.set(6.5,-0.351,6);gnd.receiveShadow=true;scene.add(gnd);
+const deck='#b08d68',beam='#7d5f43',front='#ece8e1',top='#3a3a3a',light='#d9d2c7',dark='#8b6a4b',slabC='#d8d4cc',mirror='#cfe0e8',white='#fafafa';
+const FLC={w:'#caa982',t:'#e2dfd8',b:'#d3dcdf'};
+/* ---------- фундамент: монолитная плита с рёбрами, плиты крыльца и площадки в сад ---------- */
+const FD=HS.FUND,fundG=new THREE.Group();scene.add(fundG);
+const concM=new THREE.MeshStandardMaterial({color:'#b3b0a9',roughness:0.95});
+slab(FD.contour,FD.top-FD.t,FD.t,concM,fundG);
+FD.ribs.forEach(r=>B(r[0],r[1],r[2],r[3],FD.top-FD.t-r[4],r[4],'#9d9a93',fundG));
+FD.porch.forEach(r=>B(r[0],r[1],r[2],r[3],-370,r[4],null,fundG,concM));
+const f1=new THREE.Group(),f2=new THREE.Group();f2.position.y=mm(HS.FL2);scene.add(f1);scene.add(f2);
+function buildWalls(list,Hc0,parent){
+ const grp=new THREE.Group();parent.add(grp);
+ const wc='#f3f0ea',fc='#fbfbfb';
+ list.forEach(w=>{
+  const Hc=Math.min(Hc0,w.hh||Hc0);
+  const put=(a,len,z,h,c,o,th,off)=>{th=th??(w.c1-w.c0);off=off??w.c0;
+   return w.o==='h'?B(a,off,len,th,z,h,c,grp,o):B(off,a,th,len,z,h,c,grp,o);};
+  let cur=w.a0;
+  w.ops.forEach(op=>{
+   put(cur,op.f-cur,0,Hc,wc);const L=op.t-op.f;
+   put(op.f,L,0,Math.min(op.s,Hc),wc);
+   if(op.h<Hc)put(op.f,L,op.h,Hc-op.h,wc);
+   if((op.k==='w'||op.k==='g')&&op.s<Hc){
+    const tp=Math.min(op.h,Hc),mid=(w.c0+w.c1)/2,fr=60,fd=80,fo=mid-fd/2;
+    const g=put(op.f,L,op.s,tp-op.s,null,glass,20,mid-10);if(g)g.castShadow=false;
+    put(op.f,L,op.s,fr,fc,null,fd,fo);
+    if(op.h<=Hc)put(op.f,L,tp-fr,fr,fc,null,fd,fo);
+    put(op.f,fr,op.s,tp-op.s,fc,null,fd,fo);put(op.t-fr,fr,op.s,tp-op.s,fc,null,fd,fo);
+    if(L>=1500)put(op.f+L/2-fr/2,fr,op.s,tp-op.s,fc,null,fd,fo);
+   }
+   cur=op.t;});
+  put(cur,w.a1-cur,0,Hc,wc);
+ });
+ return grp;
+}
+let wg1=null,wg2=null;
+function walls(cut){
+ [wg1,wg2].forEach(g=>{if(g){g.parent.remove(g);g.traverse(o=>{if(o.geometry)o.geometry.dispose();});}});
+ wg1=buildWalls(HS.walls1,cut?1100:HS.H1,f1);wg2=buildWalls(HS.walls2,cut?1100:HS.H2,f2);
+}
+const counter=(x,y,w,d,c)=>{B(x,y,w,d,0,860,c);B(x,y,w,d,860,40,top);};
+const table=(x,y,w,d,z0)=>{B(x,y,w,d,z0+730,40,'#9c7650');[[x+60,y+60],[x+w-120,y+60],[x+60,y+d-120],[x+w-120,y+d-120]].forEach(p=>B(p[0],p[1],60,60,z0,730,'#6e5238'));};
+const chair=(cx,cy,back,z0,c)=>{const x0=cx-225,y0=cy-225;c=c||'#3d3d3d';z0=z0||0;B(x0,y0,450,450,z0+420,40,c);
+ if(back==='N')B(x0,y0,450,50,z0+460,440,c);else if(back==='S')B(x0,y0+400,450,50,z0+460,440,c);else if(back==='W')B(x0,y0,50,450,z0+460,440,c);else B(x0+400,y0,50,450,z0+460,440,c);
+ [[x0,y0],[x0+410,y0],[x0,y0+410],[x0+410,y0+410]].forEach(p=>B(p[0],p[1],40,40,z0,420,'#2a2a2a'));};
+const armC='#b98b6e';
+const armchair=(x,y,back)=>{B(x,y,700,700,0,420,armC);
+ if(back==='N')B(x,y,700,160,0,820,armC);else if(back==='S')B(x,y+540,700,160,0,820,armC);else if(back==='W')B(x,y,160,700,0,820,armC);else B(x+540,y,160,700,0,820,armC);};
+const bed=(x,y,L,Wd,head)=>{B(x,y,L,Wd,0,450,'#e8e2d8');B(x+40,y+20,L-80,Wd-40,450,120,'#f4f1ec');
+ const hx=head==='W'?x:x+L-80;B(hx,y-50,80,Wd+100,0,1100,dark);
+ const px=head==='W'?x+120:x+L-540;B(px,y+100,420,Wd/2-150,570,120,'#ffffff');B(px,y+Wd/2+50,420,Wd/2-150,570,120,'#ffffff');
+ const bx=head==='W'?x+L*0.45:x+40;B(bx,y+20,L*0.55-40,Wd-40,560,30,'#9fb0a8');};
+const lampM=new THREE.MeshStandardMaterial({color:'#fff3da',emissive:'#ffd98a',emissiveIntensity:0.9});
+const lamp=(x,y,z,Hc)=>{const s=new THREE.Mesh(new THREE.SphereGeometry(0.11,20,14),lampM);s.position.set(mm(x),mm(z),mm(y));G.add(s);B(x-5,y-5,10,10,z+100,Hc-z-100,'#333');};
+const toiletY=(x,y,backS)=>{B(x,y,380,650,0,400,white);B(x,backS?y+450:y,380,200,400,420,white);};
+
+/* ---------- 1 этаж ---------- */
+G=f1;
+slab(FD.contour,FD.top,-FD.top,'#f3f0ea',f1);
+HS.floors1.forEach(f=>B(f[0],f[1],f[2],f[3],0,10,FLC[f[4]]));
+/* кухня слева спереди, у стены санузла: колонны и мойка у левой стены, варочная у задней, остров */
+B(0,4500,600,1200,0,2300,front);B(600,5140,12,520,100,2100,'#e0dcd4');B(600,4560,12,540,900,600,'#222',null,{roughness:0.2});
+counter(0,5700,600,2200,front);counter(600,7300,2100,600,front);
+B(80,6200,440,600,900,4,'#9aa3ab',null,{metalness:0.6,roughness:0.3});B(1350,7350,600,500,900,6,'#151515',null,{roughness:0.2});
+B(600,7550,2100,350,1500,800,front);B(1350,7400,600,500,1800,200,'#c9ccce',null,{metalness:0.5,roughness:0.35});B(1500,7650,300,250,2000,800,'#c9ccce',null,{metalness:0.5,roughness:0.35});
+B(1500,5400,1500,900,0,860,dark);B(1450,5350,1600,1000,860,40,top);
+lamp(1900,5850,2000,HS.H1);lamp(2600,5850,2000,HS.H1);
+/* столовая в новой части выступа: стол 2,2 × 1,0 на 8 мест */
+table(1650,700,1000,2200,0);[1150,1800,2450].forEach(c=>{chair(1375,c,'W');chair(2925,c,'E');});chair(2150,425,'N');chair(2150,3175,'S');
+B(2130,800,40,2000,1950,30,'#222');B(2140,800,20,2000,1935,15,'#ffe7b0',null,{emissive:'#ffd98a',emissiveIntensity:0.9});
+B(2145,1000,10,10,1980,HS.H1-1980,'#333');B(2145,2600,10,10,1980,HS.H1-1980,'#333');
+/* гостиная справа: П-образный диван основанием вплотную к правой стене, открыт к ТВ на несущей стене; сзади у окна кресла */
+const sofa='#6f7f8f',cush='#7a8a9a',cushB='#8393a3';
+B(4700,4600,2900,2900,10,8,'#d8cfc2');
+B(6650,4700,950,2700,0,420,sofa);B(7400,4700,200,2700,0,850,sofa);
+B(4900,4700,1750,950,0,420,sofa);B(4900,4700,1750,200,0,850,sofa);B(4900,4700,180,950,0,620,sofa);
+B(4900,6450,1750,950,0,420,sofa);B(4900,7200,1750,200,0,850,sofa);B(4900,6450,180,950,0,620,sofa);
+B(6670,4900,730,2300,420,90,cush);B(5080,4900,1570,730,420,90,cush);B(5080,6470,1570,730,420,90,cush);
+B(7220,4900,180,2300,510,360,cushB);B(5080,4900,1570,180,510,360,cushB);B(5080,7020,1570,180,510,360,cushB);
+B(5200,5750,1200,600,0,400,'#a07d5a');
+B(3800,5300,40,1500,1000,800,'#111',null,{roughness:0.25});
+B(4400,200,2800,2000,10,8,'#d8cfc2');armchair(4600,300,'N');armchair(6000,300,'N');
+Cyl(5650,1500,300,450,30,'#9c7650');Cyl(5650,1500,40,0,450,'#333');B(7200,1300,400,2400,0,2000,light);
+Cyl(7250,7650,170,0,450,'#8a7c6a');{const lf=new THREE.Mesh(new THREE.SphereGeometry(0.34,20,14),mat('#5f8a50'));lf.position.set(7.25,0.8,7.65);lf.castShadow=true;f1.add(lf);}
+B(0,8100,600,2000,0,2200,light);B(600,8100,1150,450,0,2200,light);
+B(1850,8100,1700,700,0,550,'#f7f7f5');B(1950,8180,1500,540,550,5,'#bfd6de');
+B(1850,9600,650,380,0,400,white);B(1850,9600,200,380,400,420,white);
+B(2800,9650,600,450,0,800,light);B(2900,9700,400,350,800,80,white);B(2850,10080,500,15,1100,700,mirror,null,{roughness:0.1,metalness:0.4});
+bed(0,11500,2000,1600,'W');B(0,11000,450,450,0,500,dark);B(0,13150,450,450,0,500,dark);B(3100,12000,500,1200,0,800,light);
+armchair(2600,13600,'S');B(1200,11300,1900,2000,10,8,'#d8cfc2');
+B(5250,11950,600,1250,0,2200,light);
+B(4980,9750,1520,350,0,1300,light);
+B(7300,11000,300,450,1200,750,white);Cyl(7300,11900,250,0,1500,'#e8e8e8');
+B(6000,12600,600,600,0,850,'#f2f2f2');B(6600,12600,600,600,0,850,'#f2f2f2');
+const stairC='#b8916a',RISE=170,SL=300;
+for(let i=0;i<7;i++)B(4850+i*250,8100,250,900,0,(i+1)*RISE,stairC);
+function wedge(pts,z0,h){const sh=new THREE.Shape();pts.forEach((p,i)=>{const px=mm(p[0]),pz=-mm(p[1]);i?sh.lineTo(px,pz):sh.moveTo(px,pz);});
+ const g=new THREE.ExtrudeGeometry(sh,{depth:mm(h),bevelEnabled:false});g.rotateX(-Math.PI/2);
+ const me=new THREE.Mesh(g,mat(stairC));me.position.y=mm(z0);me.castShadow=true;me.receiveShadow=true;G.add(me);}
+const WC=[6600,9075];
+wedge([WC,[6600,8100],[7600,8100]],0,8*RISE);wedge([WC,[7600,8100],[7600,9075]],0,9*RISE);
+wedge([WC,[7600,9075],[7600,10100]],10*RISE-SL,SL);wedge([WC,[7600,10100],[6600,10100]],11*RISE-SL,SL);
+for(let k=12;k<=18;k++){const j=k-12;B(6600-(j+1)*250,9150,250,950,k*RISE-SL,SL,stairC);}
+function slab(pts,z0,h,c,parent){const sh=new THREE.Shape();pts.forEach((p,i)=>{const px=mm(p[0]),pz=-mm(p[1]);i?sh.lineTo(px,pz):sh.moveTo(px,pz);});
+ const g=new THREE.ExtrudeGeometry(sh,{depth:mm(h),bevelEnabled:false});g.rotateX(-Math.PI/2);
+ const me=new THREE.Mesh(g,c&&c.isMaterial?c:mat(c));me.position.y=mm(z0);me.castShadow=true;me.receiveShadow=true;(parent||G).add(me);return me;}
+function bar(p1,p2,wd,z,h,c,parent){const dx=p2[0]-p1[0],dy=p2[1]-p1[1],L=Math.hypot(dx,dy);
+ const me=new THREE.Mesh(new THREE.BoxGeometry(mm(L),mm(h),mm(wd)),c&&c.isMaterial?c:mat(c));
+ me.position.set(mm((p1[0]+p2[0])/2),mm(z+h/2),mm((p1[1]+p2[1])/2));me.rotation.y=-Math.atan2(dy,dx);me.castShadow=true;me.receiveShadow=true;(parent||G).add(me);return me;}
+B(FD.porch[0][0],FD.porch[0][1],FD.porch[0][2],FD.porch[0][3],-170,20,deck);B(4400,14900,1400,600,-270,20,deck);
+B(FD.porch[2][0],FD.porch[2][1],FD.porch[2][2],FD.porch[2][3],-170,20,deck);
+const roofG=new THREE.Group();f1.add(roofG);
+
+/* ---------- 2 этаж ---------- */
+G=f2;
+[[300,-400,7700,4500],[-400,4100,8400,4150],[-400,8250,5250,1850],[7600,8250,400,1850],[-400,10100,8400,3500],[-400,13600,4400,1300],[4000,13600,4000,1300]]
+ .forEach(s=>B(s[0],s[1],s[2],s[3],-260,260,slabC));
+B(4000,13600,4000,1300,0,15,deck);
+HS.floors2.forEach(f=>B(f[0],f[1],f[2],f[3],0,10,FLC[f[4]]));
+Gl(4840,8250,20,900,0,900);B(4830,8250,40,900,900,40,beam);
+Gl(4980,9065,1620,20,-260,1160);B(4980,9055,1620,40,900,40,beam);
+bed(5600,1500,2000,1800,'E');B(7150,1000,450,450,0,500,dark);B(7150,3350,450,450,0,500,dark);
+B(1500,3850,1800,500,0,800,light);armchair(1900,450,'N');armchair(2900,450,'N');Cyl(2750,1650,350,420,30,'#9c7650');Cyl(2750,1650,40,0,420,'#333');
+table(700,1300,600,1700,0);chair(1525,2150,'E');B(4800,1200,2400,2200,10,8,'#d8cfc2');B(1700,300,2200,2000,10,8,'#d8cfc2');
+B(5100,4500,600,3600,0,2200,light);B(3800,6000,15,800,300,1800,mirror,null,{roughness:0.1,metalness:0.4});
+B(6700,5000,900,1200,0,40,'#f5f5f5');Gl(6700,5000,15,1200,40,1960);Gl(6700,6185,900,15,40,1960);
+B(5900,7600,1000,500,0,850,light);B(6100,7650,600,400,850,60,white);B(5900,8085,1000,15,1100,800,mirror,null,{roughness:0.1,metalness:0.4});
+B(6950,6350,650,380,0,400,white);B(7400,6350,200,380,400,420,white);
+bed(1600,5500,2000,1600,'E');B(3150,5000,450,450,0,500,dark);B(3150,7150,450,450,0,500,dark);
+B(1000,4500,2100,600,0,2200,light);table(0,4700,600,1200,0);chair(825,5300,'E');
+B(0,8300,700,1700,0,550,'#f7f7f5');B(60,8380,580,1540,550,5,'#bfd6de');
+B(1100,8250,600,450,0,800,light);B(1200,8290,400,350,800,80,white);B(1100,8250,600,15,1100,700,mirror,null,{roughness:0.1,metalness:0.4});
+B(2100,8250,600,600,0,850,'#f2f2f2');toiletY(1300,9450,true);
+bed(0,11600,2000,1600,'W');B(0,11100,450,450,0,500,dark);B(0,13250,450,450,0,500,dark);
+B(3000,11500,600,2000,0,2200,light);armchair(2400,13700,'S');B(1200,11400,1800,2000,10,8,'#d8cfc2');
+table(6900,11000,700,1600,0);B(7400,11550,40,500,770,320,'#111',null,{roughness:0.25});chair(6625,11800,'W');
+const sofa2='#8a7f72';B(3800,11000,900,2000,0,420,sofa2);B(3800,11000,200,2000,0,850,sofa2);B(3800,11000,900,150,0,620,sofa2);B(3800,12850,900,150,0,620,sofa2);
+B(5000,10250,1800,400,0,2000,light);B(4900,11300,1600,1400,10,8,'#d8cfc2');
+Gl(4000,14860,4000,20,15,1000);B(4000,14850,4000,40,1015,40,beam);
+Gl(7960,13600,20,1260,15,1000);B(7950,13600,40,1290,1015,40,beam);
+Cyl(5700,14250,350,720,30,'#9c7650');Cyl(5700,14250,35,15,705,'#333');chair(5125,14125,'N',15,'#6e5238');chair(6275,14125,'N',15,'#6e5238');
+
+/* ---------- крыша ---------- */
+const roofGrp=new THREE.Group();scene.add(roofGrp);
+const T30=Math.tan(Math.PI/6),Z0=HS.FL2+HS.H2+200,RT=200;
+const roofMat=mat('#4a4f55',{roughness:0.6,metalness:0.3}),fasciaMat=mat('#e9e4dc'),wallM=mat('#f3f0ea');
+function prism(pts,y0,y1,mats){const sh=new THREE.Shape();pts.forEach((p,i)=>{i?sh.lineTo(mm(p[0]),mm(p[1])):sh.moveTo(mm(p[0]),mm(p[1]));});
+ const g=new THREE.ExtrudeGeometry(sh,{depth:mm(y1-y0),bevelEnabled:false});const me=new THREE.Mesh(g,mats);
+ me.position.z=mm(y0);me.castShadow=true;me.receiveShadow=true;roofGrp.add(me);return me;}
+function hat(x0,x1,ov,y0,y1,dz,capY1){const xc=(x0+x1)/2,half=(x1-x0)/2,zr=Z0+half*T30+dz,ze=Z0-ov*T30+dz;
+ prism([[x0-ov,ze],[xc,zr],[x1+ov,ze],[x1+ov,ze-RT],[xc,zr-RT],[x0-ov,ze-RT]],y0,y1,[fasciaMat,roofMat]);
+ B(xc-60,y0,120,(capY1??y1)-y0,zr-20,60,'#3a3e43',roofGrp);
+ B(x0-ov-60,y0,60,y1-y0,ze-RT-60,RT+40,'#e9e4dc',roofGrp);B(x1+ov,y0,60,y1-y0,ze-RT-60,RT+40,'#e9e4dc',roofGrp);}
+/* одна крыша на весь дом: выступ почти во всю ширину, над проходом к складу свес 1,2 м */
+hat(-400,8000,500,-900,15400,0);
+const gz=Z0-RT;
+prism([[-400,gz],[8000,gz],[3800,gz+4200*T30]],14500,14900,wallM);
+prism([[300,gz],[8000,gz],[3800,gz+4200*T30],[300,gz+700*T30]],-400,0,wallM);
+prism([[300,gz],[700,gz],[700,gz+1100*T30],[300,gz+700*T30]],0,4100,wallM);
+B(4000,14500,4000,400,HS.FL2+HS.H2-300,300,'#f3f0ea',roofGrp);
+B(7800,14700,200,200,HS.FL2+15,HS.H2-315,'#f3f0ea',roofGrp);
+function roofVis(){roofGrp.visible=state.floor===2&&state.roof&&!state.cut;}
+
+/* ---------- участки, забор, ворота ---------- */
+{
+ const PL=HS.PLOT,fenceC='#6b5a48',postC='#44494e';
+ slab(PL.p299,-350,6,'#a9bd92',scene);slab(PL.p300,-350,4,'#b6c7a2',scene);
+ slab(PL.path,-344,14,'#c9c2b6',scene);
+ const pt=(p,q,d)=>{const L=Math.hypot(q[0]-p[0],q[1]-p[1]);return [p[0]+(q[0]-p[0])*d/L,p[1]+(q[1]-p[1])*d/L];};
+ const run=(p,q,d0,d1,h,c,wd)=>bar(pt(p,q,d0),pt(p,q,d1),wd||40,-350,h,c,scene);
+ const FH=2000,post=p=>B(p[0]-40,p[1]-40,80,80,-350,FH+150,postC,scene);
+ slab(PL.pad,-344,20,'#4b4d50',scene);
+ PL.fence.forEach(([p,q],i)=>{
+  const L=Math.hypot(q[0]-p[0],q[1]-p[1]);
+  const gw=p===PL.P4,gaps=gw?[PL.gate.wicket,PL.gate.gate]:[];
+  let cur=0;gaps.forEach(g=>{if(g[0]>cur)run(p,q,cur,g[0],FH,fenceC);cur=g[1];});
+  if(cur<L)run(p,q,cur,L,FH,fenceC);
+  for(let d=0;d<=L;d+=2500)post(pt(p,q,d));post(q);
+  if(gw){
+   const g=PL.gate.gate,w=PL.gate.wicket;
+   bar(pt(p,q,g[0]+30),pt(p,q,g[1]-30),60,-300,FH,'#3f4a52',scene);
+   for(let y=-150;y<FH-400;y+=300)bar(pt(p,q,g[0]+30),pt(p,q,g[1]-30),70,y,40,'#56636d',scene);
+   bar(pt(p,q,w[0]+20),pt(p,q,w[1]-20),60,-300,FH,'#3f4a52',scene);
+   [g[0],g[1],w[0],w[1]].forEach(d=>{const a=pt(p,q,d);B(a[0]-60,a[1]-60,120,120,-350,FH+200,postC,scene);});
+  }
+ });
+ /* Mercedes Atego: кузов 7 м, всего ≈ 9,3 × 2,5 × 3,4 м */
+ const T=PL.truck,tg=new THREE.Group();scene.add(tg);
+ tg.position.set(mm(T.R[0]),0,mm(T.R[1]));tg.rotation.y=Math.atan2(T.n[0],T.n[1]);
+ const TB=(x,z,w,d,y,h,c,o)=>{const me=new THREE.Mesh(new THREE.BoxGeometry(mm(w),mm(h),mm(d)),mat(c,o));
+  me.position.set(mm(x+w/2),mm(-350+y+h/2),mm(z+d/2));me.castShadow=true;me.receiveShadow=true;tg.add(me);return me;};
+ TB(-450,300,900,8700,500,300,'#2a2d30');
+ TB(-1250,0,2500,7000,1000,2400,'#e6e8ea',{roughness:0.6});
+ TB(-1250,7150,2500,2150,850,2050,'#f7f7f5',{roughness:0.4});
+ TB(-1150,9290,2300,30,1950,850,'#2b3a44',{roughness:0.1,metalness:0.3});
+ TB(-1262,7400,12,1200,1950,800,'#2b3a44',{roughness:0.1,metalness:0.3});TB(1250,7400,12,1200,1950,800,'#2b3a44',{roughness:0.1,metalness:0.3});
+ TB(-950,9295,1900,30,1050,650,'#3a3d40');TB(-1250,9260,2500,90,550,300,'#5a5d60');
+ const wheel=(x,z)=>{const w=new THREE.Mesh(new THREE.CylinderGeometry(mm(480),mm(480),mm(320),24),mat('#1c1d1f'));
+  w.rotation.z=Math.PI/2;w.position.set(mm(x),mm(-350+480),mm(z));w.castShadow=true;tg.add(w);};
+ [-1080,1080].forEach(x=>wheel(x,8350));[-1080,-760,760,1080].forEach(x=>wheel(x,2800));
+}
+
+/* ---------- склад и забор ---------- */
+{
+ const K=HS.SKLAD,sk=new THREE.Group();scene.add(sk);
+ sk.position.set(mm(K.origin[0]),0,mm(K.origin[1]));sk.rotation.y=K.rot;
+ const LB=(x,z,w,d,y,h,c,o)=>{const me=new THREE.Mesh(new THREE.BoxGeometry(mm(w),mm(h),mm(d)),o&&o.isMaterial?o:mat(c,o));
+  me.position.set(mm(x+w/2),mm(y+h/2),mm(z+d/2));me.castShadow=true;me.receiveShadow=true;sk.add(me);return me;};
+ const LP=(pts,z0,z1,m)=>{const sh=new THREE.Shape();pts.forEach((p,i)=>{i?sh.lineTo(mm(p[0]),mm(p[1])):sh.moveTo(mm(p[0]),mm(p[1]));});
+  const me=new THREE.Mesh(new THREE.ExtrudeGeometry(sh,{depth:mm(z1-z0),bevelEnabled:false}),m);me.position.z=mm(z0);me.castShadow=true;me.receiveShadow=true;sk.add(me);return me;};
+ const W=K.W,L=K.L,GR=-350,B0=GR+400,FT=B0+200,YH=B0+3000,YL=B0+2000,s=(YH-YL)/W,wc='#c9a46c',wm=mat(wc,{roughness:0.9}),steel='#3d4247';
+ const LC=(x,z,r,y,h,c)=>{const me=new THREE.Mesh(new THREE.CylinderGeometry(mm(r),mm(r),mm(h),16),mat(c,{metalness:0.5,roughness:0.5}));
+  me.position.set(mm(x),mm(y+h/2),mm(z));me.castShadow=true;me.receiveShadow=true;sk.add(me);};
+ [300,W/2,W-300].forEach(x=>[300,L/3,2*L/3,L-300].forEach(z=>{LC(x,z,54,GR,400,steel);LB(x-100,z-100,200,200,B0-10,10,steel);}));
+ LB(0,0,W,L,B0,200,steel);
+ LB(W-200,0,200,L,FT,YH-FT,wc);LB(0,0,200,L,FT,YL-FT,wc);
+ const tr=[[0,FT],[W,FT],[W,YH],[0,YL]];LP(tr,0,200,wm);LP(tr,L-200,L,wm);
+ const seam='#a8844f';
+ for(let z=1250;z<L;z+=1250){LB(-12,z-10,12,20,FT,YL-FT,seam);LB(W,z-10,12,20,FT,YH-FT,seam);}
+ for(let x=1250;x<W;x+=1250){const hx=YL+(YH-YL)*x/W-FT;LB(x-10,-12,20,12,FT,hx,seam);LB(x-10,L,20,12,FT,hx,seam);}
+ LB(W-1550,L,1000,50,FT,2200,'#f4f4f2');LB(W-1480,L+50,860,10,FT+80,2040,'#9fc3d6',{roughness:0.05,metalness:0.2,transparent:true,opacity:0.55});
+ LB(W-1480,L+55,860,40,FT+1000,60,'#f4f4f2');LB(W-700,L+62,120,25,FT+1080,25,'#9a9a9a',{metalness:0.6,roughness:0.3});
+ [[0,FT],[300,FT-200],[600,FT-400]].forEach(st=>LB(W-1650,L+st[0],1200,300,GR,st[1]-GR,steel));
+ const gl={roughness:0.1,metalness:0.3};
+ const pvc={roughness:0.05,metalness:0.2,transparent:true,opacity:0.55};
+ LB(2190,L,1120,30,FT+840,1120,'#f4f4f2');LB(2250,L+30,1000,10,FT+900,1000,'#9fc3d6',pvc);
+ LB(W,L-1960,30,1120,FT+840,1120,'#f4f4f2');LB(W+30,L-1900,10,1000,FT+900,1000,'#9fc3d6',pvc);
+ /* вагончик-бытовка 8 × 2,45 м через 1 м после склада: серый профлист, синий профиль по контуру, чёрная плоская крыша */
+ const C0=L+1000,CL=8000,CW=2450,CB=GR+200,CH=2500,blue='#23508f',gray='#9ea4a9',rib='#8b9196',glassC='#2b3a44';
+ [C0+500,C0+CL-800].forEach(z=>LB(0,z,CW,300,GR,200,'#6d6d6d'));
+ LB(0,C0,CW,CL,CB,CH,gray,{roughness:0.6,metalness:0.2});
+ LB(-20,C0-20,CW+40,CL+40,CB+CH,60,'#1c1d1f',{roughness:0.8});
+ for(let z=C0+300;z<C0+CL-200;z+=300){LB(-15,z,15,40,CB+120,CH-240,rib);LB(CW,z,15,40,CB+120,CH-240,rib);}
+ for(let x=300;x<CW-200;x+=300){LB(x,C0-15,40,15,CB+120,CH-240,rib);LB(x,C0+CL,40,15,CB+120,CH-240,rib);}
+ [CB,CB+CH-120].forEach(y=>{LB(-25,C0-25,CW+50,120,y,120,blue);LB(-25,C0+CL-95,CW+50,120,y,120,blue);LB(-25,C0-25,120,CL+50,y,120,blue);LB(CW-95,C0-25,120,CL+50,y,120,blue);});
+ [[-25,C0-25],[CW-95,C0-25],[-25,C0+CL-95],[CW-95,C0+CL-95]].forEach(p=>LB(p[0],p[1],120,120,CB,CH,blue));
+ LB(CW+15,C0+400,20,900,CB+150,2000,'#6f757b');LB(CW+35,C0+1150,15,120,CB+1050,30,'#c9ccce');LB(CW+20,C0+300,700,1100,GR,200,'#6d6d6d');
+ LB((CW-1000)/2,C0-35,1000,20,CB+900,900,glassC,gl);LB((CW-1000)/2,C0+CL+15,1000,20,CB+900,900,glassC,gl);
+ LP([[-300,YL-300*s],[W+300,YH+300*s],[W+300,YH+300*s+120],[-300,YL-300*s+120]],-300,L+300,[mat('#5f656b'),mat('#6f757b',{roughness:0.5,metalness:0.4})]);
+}
+
+/* ---------- существующий дом 11 × 10 на участке …300, по фото: два этажа, несимметричная двускатная крыша,
+   конёк поперёк фасада и сдвинут вправо. Фасад с гаражом смотрит на передний забор, высоты оценены по фото ---------- */
+{
+ const O=HS.PLOT.old,x0=O[0],x1=O[2],y0=O[1],y1=O[3],GR=-350,EH=GR+5000,RH=GR+7400,xr=x0+7600;
+ const tL=(RH-EH)/(xr-x0),tR=(RH-EH)/(x1-xr),fz=x=>x<=xr?EH+(x-x0)*tL:EH+(x1-x)*tR,under=d=>x=>fz(x)-d;
+ const stone='#e4d9c5',brick='#4b4a48',wood='#8a5a3a',gm=mat('#2c3640',{roughness:0.15,metalness:0.3});
+ const og=new THREE.Group();scene.add(og);
+ const mesh=(g,m)=>{const me=new THREE.Mesh(g,m);me.castShadow=true;me.receiveShadow=true;og.add(me);return me;};
+ /* профиль в плоскости x–z, вытянутый вдоль y от ya до yb */
+ const xz=(pts,ya,yb,m)=>{const sh=new THREE.Shape();pts.forEach((q,i)=>i?sh.lineTo(mm(q[0]),mm(q[1])):sh.moveTo(mm(q[0]),mm(q[1])));
+  const me=mesh(new THREE.ExtrudeGeometry(sh,{depth:mm(yb-ya),bevelEnabled:false}),m);me.position.z=mm(ya);return me;};
+ /* панель на главном фасаде: f — от левого угла, z — от земли; верх может идти под скатом */
+ const panel=(fa,fb,za,zb,m,dep)=>{const xa=x0+fa,xb=x0+fb,top=x=>typeof zb==='function'?zb(x):GR+zb,pts=[[xa,GR+za],[xb,GR+za],[xb,top(xb)]];
+  if(typeof zb==='function'&&xa<xr&&xb>xr)pts.push([xr,top(xr)]);pts.push([xa,top(xa)]);return xz(pts,y1,y1+(dep||30),m.isMaterial?m:mat(m));};
+ B(x0,y0,x1-x0,y1-y0,GR,EH-GR,stone,og);xz([[x0,EH],[xr,RH],[x1,EH]],y0,y1,mat(stone));
+ B(x0-20,y0-20,x1-x0+40,y1-y0+40,GR,300,'#6a665f',og);
+ /* крыша: металл сверху, деревянная подшивка снизу, свесы 0,7 по карнизам и 0,6 по фронтонам */
+ const oE=700,oG=600,prof=(d0,d1)=>[[x0-oE,EH-oE*tL+d1],[xr,RH+d1],[x1+oE,EH-oE*tR+d1],[x1+oE,EH-oE*tR+d0],[xr,RH+d0],[x0-oE,EH-oE*tL+d0]];
+ xz(prof(0,160),y0-oG,y1+oG,mat('#a8784f'));
+ xz(prof(160,240),y0-oG,y1+oG,[mat('#2f3236'),mat('#35383c',{roughness:0.55,metalness:0.35})]);
+ /* главный фасад */
+ panel(0,4000,0,2900,brick);panel(700,3200,80,2500,'#2a2d30',60);
+ panel(1000,2850,2600,3600,wood);panel(1000,2850,3600,under(250),gm,50);
+ panel(4300,6300,0,under(0),brick);panel(4800,5800,450,2750,'#6b4630',60);panel(4800,5800,3650,under(350),gm,60);
+ panel(7600,9500,300,1100,wood);panel(7600,9500,1100,2600,gm,50);panel(7600,9500,2600,3600,wood);panel(7600,9500,3600,under(300),gm,50);
+ /* балкон со стеклянным ограждением над входом */
+ const bx=x0+3200,bw=4400,bz=GR+3250;
+ B(bx,y1,bw,1200,bz,350,'#ece6db',og);
+ [[bx,y1+1170,bw,30],[bx,y1,30,1200],[bx+bw-30,y1,30,1200]].forEach(r=>{B(r[0],r[1],r[2],r[3],bz+350,1000,null,og,glass);B(r[0],r[1],r[2],r[3],bz+1350,30,'#2a2d30',og);});
+ /* крыльцо в три ступени и кадки с туями */
+ const sx=x0+3700,sw=3300,stC='#9d9a93';
+ B(sx,y1,sw,1300,GR,450,stC,og);B(sx-350,y1+1300,sw+700,350,GR,300,stC,og);B(sx-700,y1+1650,sw+1400,350,GR,150,stC,og);
+ [sx+300,sx+sw-300].forEach(px=>{B(px-250,y1+850,500,400,GR+450,450,'#3a3a3a',og);const c=mesh(new THREE.ConeGeometry(0.22,1.1,12),mat('#3f6b3a'));c.position.set(mm(px),mm(GR+1450),mm(y1+1050));});
+ /* окна на остальных стенах — условно */
+ [[1500,2900],[5500,6900]].forEach(([a,b])=>{B(x0-40,y0+a,40,b-a,GR+1100,1400,null,og,gm);B(x1,y0+a,40,b-a,GR+1100,1400,null,og,gm);});
+ [[1500,3500],[7000,9000]].forEach(([a,b])=>{B(x0+a,y0-40,b-a,40,GR+1100,1500,null,og,gm);B(x0+a,y0-40,b-a,40,GR+3900,1500,null,og,gm);});
+}
+
+/* всё, кроме дома и фундамента, — в группу участка: её прячет режим «Только фундамент» */
+const siteG=new THREE.Group();
+scene.children.filter(o=>o!==f1&&o!==f2&&o!==roofGrp&&o!==fundG&&o!==sun.target&&!o.isLight).forEach(o=>siteG.add(o));
+scene.add(siteG);
+const grid=new THREE.GridHelper(36,36,0x6f7a7c,0xa9b1af);grid.position.set(3.6,-0.353,6.6);
+grid.material.transparent=true;grid.material.opacity=0.5;grid.visible=false;scene.add(grid);
+
+walls(false);
+let mode='orbit',r=10,th=0,ph=1,yaw=0,pitch=0;const tgt=new THREE.Vector3(),eye=new THREE.Vector3();
+function draw(){
+ if(mode==='orbit'){const s=Math.sin(ph);camera.position.set(tgt.x+r*s*Math.sin(th),tgt.y+r*Math.cos(ph),tgt.z+r*s*Math.cos(th));camera.lookAt(tgt);}
+ else{const d=new THREE.Vector3(Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch));camera.position.copy(eye);camera.lookAt(eye.clone().add(d));}
+ renderer.render(scene,camera);}
+function resize(){if(!box.clientWidth)return;renderer.setSize(W(),HH(),false);camera.aspect=W()/HH();camera.updateProjectionMatrix();draw();}
+function setView(e,t,m){mode=m;
+ if(m==='orbit'){tgt.set(...t);const o=new THREE.Vector3(...e).sub(tgt);r=o.length();th=Math.atan2(o.x,o.z);ph=Math.acos(o.y/r);}
+ else{eye.set(...e);const d=new THREE.Vector3(...t).sub(eye).normalize();yaw=Math.atan2(d.x,d.z);pitch=Math.asin(d.y);}
+ hint.textContent=m==='look'?'Тяни — осмотреться · колесо или два пальца — шаг вперёд/назад':(state.floor===0?'Тяни — вращать, можно заглянуть под плиту · сетка 1 × 1 м от заднего левого угла дома · колесо или два пальца — приближать':'Тяни — вращать · колесо или два пальца — приближать · Shift + тяни — сдвигать');
+ draw();}
+const E=3.06+1.6;
+const PLg=HS.PLOT,Gt=PLg.G,Nt=PLg.n;
+const V={truck:[[-12,8,29],[3,1.5,17],'orbit',true],all:[[-3,20,-1],[3.8,0,7.2],'orbit'],top:[[3.8,27,7.6],[3.8,0,7.2],'orbit'],front:[[9,8,27],[3.5,3,8],'orbit',true],nw:[[-11,8,-9],[4,3,5],'orbit',true],site:[[-1,44,24],[7.5,0,4.5],'orbit',true],old:[[8.5,4.5,24],[16.5,3,9.5],'orbit',true],
+ fall:[[-6,9,-5],[3.8,-0.5,7.2],'orbit'],ftop:[[3.8,21,7.65],[3.8,-0.5,7.25],'orbit'],ffront:[[11,5,25],[3.8,-0.5,7.5],'orbit'],fnw:[[-10,5,-7],[3.8,-0.5,6],'orbit'],fbelow:[[-5,-8,21],[3.8,-0.5,7.2],'orbit'],
+ dining:[[3.2,1.6,4.2],[1.5,0.9,0.8],'look'],living:[[4.3,1.7,4.2],[7.0,0.5,6.4],'look'],kitchen:[[3.2,1.6,4.4],[0.6,0.9,6.8],'look'],
+ corridor:[[4.3,1.6,11.6],[4.3,1.3,6.0],'look'],stair:[[4.0,1.6,8.55],[7.6,1.9,8.9],'look'],stairtop:[[4.4,4.6,11.2],[6.2,0.9,9.1],'orbit'],
+ bedroom:[[3.2,1.6,14.1],[0.8,0.6,12.3],'look'],
+ all2:[[-3,23,-1],[3.8,3.06,7.2],'orbit',false],top2:[[3.8,30,7.6],[3.8,3.06,7.2],'orbit',false],
+ master:[[4.5,E,0.6],[7.2,3.8,2.6],'look'],closet:[[4.5,E,7.8],[4.6,3.9,5.2],'look'],lounge:[[4.6,E,3.9],[1.2,3.7,0.8],'look'],nwbed:[[3.2,E,7.9],[0.4,3.8,5.4],'look'],swbed:[[3.3,E,10.6],[0.8,3.6,12.4],'look'],
+ corridor2:[[3.1,E,9.9],[7.4,3.2,8.9],'look'],cabinet:[[4.3,E,10.7],[6.2,3.9,14.6],'look'],balcony:[[7.6,E,14.6],[3.8,3.6,12.0],'look']};
+const ptrs=new Map();let drag=null,pinch=0;
+cv.addEventListener('pointerdown',e=>{ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});cv.setPointerCapture(e.pointerId);cv.style.cursor='grabbing';
+ drag={x:e.clientX,y:e.clientY,pan:e.shiftKey||e.button===2};
+ if(ptrs.size===2){const [a,b]=[...ptrs.values()];pinch=Math.hypot(a.x-b.x,a.y-b.y);}});
+function zoom(f){if(mode==='look'){const d=new THREE.Vector3(Math.sin(yaw),0,Math.cos(yaw));eye.addScaledVector(d,(1-f)*3);}else r=Math.min(45,Math.max(0.5,r*f));}
+cv.addEventListener('pointermove',e=>{if(!ptrs.has(e.pointerId))return;ptrs.set(e.pointerId,{x:e.clientX,y:e.clientY});
+ if(ptrs.size===2){const [a,b]=[...ptrs.values()];const d=Math.hypot(a.x-b.x,a.y-b.y);if(pinch>0&&d>0){zoom(pinch/d);draw();}pinch=d;return;}
+ if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;drag.x=e.clientX;drag.y=e.clientY;
+ if(mode==='look'){yaw+=dx*0.004;pitch=Math.max(-1.2,Math.min(1.2,pitch+dy*0.004));}
+ else if(drag.pan){const k=r*0.0015,rt=new THREE.Vector3().setFromMatrixColumn(camera.matrix,0),up=new THREE.Vector3().setFromMatrixColumn(camera.matrix,1);tgt.addScaledVector(rt,-dx*k).addScaledVector(up,dy*k);}
+ else{th-=dx*0.006;ph=Math.min(state.floor===0?3.1:1.62,Math.max(0.03,ph-dy*0.006));}
+ draw();});
+function up(e){ptrs.delete(e.pointerId);if(ptrs.size<2)pinch=0;if(ptrs.size===0){drag=null;cv.style.cursor='grab';}else{const p=[...ptrs.values()][0];drag={x:p.x,y:p.y,pan:false};}}
+cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+cv.addEventListener('contextmenu',e=>e.preventDefault());
+cv.addEventListener('wheel',e=>{e.preventDefault();zoom(e.deltaY>0?1.1:0.9);draw();},{passive:false});
+if(window.ResizeObserver)new ResizeObserver(resize).observe(box);else window.addEventListener('resize',resize);
+api={go:k=>{const v=V[k];if(v[3]!==undefined){state.roof=v[3];syncRoof();}roofVis();setView(v[0],v[1],v[2]);},
+ cut:c=>{walls(c);roofG.visible=!c;roofVis();draw();},floor:n=>{const F=n===0;f1.visible=!F;f2.visible=n===2;siteG.visible=!F;grid.visible=F;
+  concM.transparent=F;concM.opacity=F?0.72:1;concM.needsUpdate=true;roofVis();draw();},roof:()=>{roofVis();draw();},resize};
+api.floor(state.floor);api.go(state.view);
+}
+})();
+</script>
+
+</body></html>
