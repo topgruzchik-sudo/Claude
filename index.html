@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Дом: варианты планировки</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{--bg:#eef0ed;--surface:#ffffff;--ink:#1d2527;--muted:#5c676a;--line:#c9cfcc;--accent:#2f6f73;--accent-ink:#ffffff;color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151a1b;--surface:#1e2527;--ink:#e6ebea;--muted:#9aa6a8;--line:#3a4447;--accent:#6fb5b8;--accent-ink:#0f1a1b;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#151a1b;--surface:#1e2527;--ink:#e6ebea;--muted:#9aa6a8;--line:#3a4447;--accent:#6fb5b8;--accent-ink:#0f1a1b;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 16px 40px;display:grid;gap:20px}
+h1{font-size:clamp(22px,4vw,30px);font-weight:600;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.lead{margin:0;color:var(--muted);max-width:62ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;align-items:start}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;display:grid}
+.card img{display:block;width:100%;height:auto;background:#f7f8f6;border-bottom:1px solid var(--line)}
+.body{padding:14px 14px 16px;display:grid;gap:8px}
+.tag{font:500 12px/1 "IBM Plex Mono",ui-monospace,monospace;color:var(--accent);letter-spacing:.04em}
+h2{font-size:18px;font-weight:600;margin:0}
+.body p{margin:0;color:var(--muted)}
+.nums{font:13px/1.4 "IBM Plex Mono",ui-monospace,monospace;color:var(--muted)}
+.nums b{color:var(--ink);font-weight:500}
+.btn{justify-self:start;margin-top:4px;padding:8px 14px;border-radius:8px;background:var(--accent);color:var(--accent-ink);text-decoration:none;font-weight:500}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.note{margin:0;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header style="display:grid;gap:8px">
+<h1>Дом с широким выступом: варианты планировки</h1>
+<p class="lead">В каждом варианте 3D-модель дома, планы обоих этажей, фундамент и схема участка с размерами. Модель можно вращать мышью или пальцем, на телефоне тоже работает.</p>
+</header>
+<div class="grid">
+<article class="card">
+<a href="dom/v1-kuhnya-sleva.html" tabindex="-1" aria-hidden="true"><img src="dom/img/v1-plan1.png" width="480" height="900" alt="" loading="lazy"></a>
+<div class="body">
+<span class="tag">ВАРИАНТ 1</span>
+<h2>Кухня слева, гостиная справа</h2>
+<p>Вход и тамбур справа спереди. Сзади кухня-столовая и гостиная рядом, между ними несущая стена со стеклянными дверями.</p>
+<span class="nums">1 этаж <b>94,7</b> · 2 этаж <b>96,3</b> · всего <b>≈191,0 м²</b></span>
+<a class="btn" href="dom/v1-kuhnya-sleva.html">Открыть</a>
+</div>
+</article>
+<article class="card">
+<a href="dom/v2-vhod-sleva.html" tabindex="-1" aria-hidden="true"><img src="dom/img/v2-plan1.png" width="480" height="900" alt="" loading="lazy"></a>
+<div class="body">
+<span class="tag">ВАРИАНТ 2</span>
+<h2>Вход слева, кухня и гостиная справа</h2>
+<p>Тамбур, лестница и спальня слева. Справа вдоль всего дома кухня-столовая и гостиная, между ними стеклянные раздвижные двери.</p>
+<span class="nums">1 этаж <b>96,2</b> · 2 этаж <b>96,6</b> · всего <b>≈192,8 м²</b></span>
+<a class="btn" href="dom/v2-vhod-sleva.html">Открыть</a>
+</div>
+</article>
+<article class="card">
+<a href="dom/v3-kuhnya-gostinaya-u-vhoda.html" tabindex="-1" aria-hidden="true"><img src="dom/img/v3-plan1.png" width="480" height="900" alt="" loading="lazy"></a>
+<div class="body">
+<span class="tag">ВАРИАНТ 3</span>
+<h2>Вход, кухня и гостиная слева</h2>
+<p>Слева тамбур, кухня, столовая и гостиная. Справа холл с лестницей, санузел, бойлерная, спальня и гостевая.</p>
+<span class="nums">1 этаж <b>95,8</b> · 2 этаж <b>96,6</b> · всего <b>≈192,4 м²</b></span>
+<a class="btn" href="dom/v3-kuhnya-gostinaya-u-vhoda.html">Открыть</a>
+</div>
+</article>
+</div>
+<p class="note">Схемы для обсуждения, не рабочие чертежи. Площади посчитаны по модели.</p>
+</main>
+</body>
+</html>
