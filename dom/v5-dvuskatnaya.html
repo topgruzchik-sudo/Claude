@@ -861,7 +861,7 @@ function roofVis(){roofGrp.visible=state.floor===2&&state.roof&&!state.cut;}
 
 /* ---------- участки, забор, ворота ---------- */
 {
- const PL=HS.PLOT,fenceC='#6b5a48',postC='#44494e';
+ const PL=HS.PLOT,fenceC='#8f9499',postC='#5a5f64';
  slab(PL.p299,-350,6,'#a9bd92',scene);slab(PL.p300,-350,4,'#b6c7a2',scene);
  slab(PL.path,-344,14,'#c9c2b6',scene);
  const pt=(p,q,d)=>{const L=Math.hypot(q[0]-p[0],q[1]-p[1]);return [p[0]+(q[0]-p[0])*d/L,p[1]+(q[1]-p[1])*d/L];};
