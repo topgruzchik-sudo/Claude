@@ -940,7 +940,7 @@ function roofVis(){roofGrp.visible=state.floor===2&&state.roof&&!state.cut;}
 /* ---------- участки, забор, ворота ---------- */
 {
  const PL=HS.PLOT,fenceC='#8f9499',postC='#5a5f64';
- slab(PL.p299,-350,6,'#a9bd92',scene,[FD.base.pit.out]);slab(PL.p300,-350,4,'#b6c7a2',scene);
+ [slab(PL.p299,-350,6,'#a9bd92',scene,[FD.base.pit.out]),slab(PL.p300,-350,4,'#b6c7a2',scene)].forEach(m=>m.userData.lawn=1);
  slab(PL.path,-344,14,'#c9c2b6',scene);
  const pt=(p,q,d)=>{const L=Math.hypot(q[0]-p[0],q[1]-p[1]);return [p[0]+(q[0]-p[0])*d/L,p[1]+(q[1]-p[1])*d/L];};
  const run=(p,q,d0,d1,h,c,wd)=>bar(pt(p,q,d0),pt(p,q,d1),wd||40,-350,h,c,scene);
@@ -1128,7 +1128,7 @@ cv.addEventListener('wheel',e=>{e.preventDefault();zoom(e.deltaY>0?1.1:0.9);draw
 if(window.ResizeObserver)new ResizeObserver(resize).observe(box);else window.addEventListener('resize',resize);
 const groundMs=[gnd.material,mat('#a9bd92'),mat('#b6c7a2'),mat('#c9c2b6'),mat('#4b4d50')];
 api={go:k=>{const v=V[k];if(v[3]!==undefined){state.roof=v[3];syncRoof();}roofVis();setView(v[0],v[1],v[2]);},
- cut:c=>{walls(c);roofG.visible=!c;roofVis();draw();},floor:n=>{const F=n===0;f1.visible=!F;f2.visible=n===2;siteG.visible=true;grid.visible=F;utilG.visible=F;ceilMesh.visible=!F||state.ceil;formG.visible=F&&state.form;
+ cut:c=>{walls(c);roofG.visible=!c;roofVis();draw();},floor:n=>{const F=n===0;f1.visible=!F;f2.visible=n===2;siteG.visible=true;grid.visible=F;utilG.visible=F;ceilMesh.visible=!F||state.ceil;siteG.children.forEach(o=>{if(o.userData.lawn)o.visible=!F;});formG.visible=F&&state.form;
   groundMs.forEach(m=>{m.transparent=F;m.opacity=F?0.45:1;m.depthWrite=!F;m.needsUpdate=true;});
   concM.transparent=F;concM.opacity=F?0.72:1;concM.needsUpdate=true;roofVis();draw();},roof:()=>{roofVis();draw();},layers:l=>{Object.keys(LG).forEach(k=>LG[k].visible=!!l[k]);draw();},build:()=>{const F=state.floor===0;ceilMesh.visible=!F||state.ceil;formG.visible=F&&state.form;draw();},truck:()=>{const t=scene.getObjectByName('truck');if(t)t.visible=state.truck;draw();},resize};
 api.floor(state.floor);api.layers(state.lay);api.go(state.view);
