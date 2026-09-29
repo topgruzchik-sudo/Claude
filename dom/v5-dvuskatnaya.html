@@ -42,6 +42,8 @@ h1{font-size:clamp(22px,4vw,30px);font-weight:600;margin:0;letter-spacing:-.01em
 .bar button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .bar button:disabled{opacity:.45;cursor:default}
 #site.no-truck .truck2d{display:none}
+#fplan .ul.off{display:none}
+.bar button .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:0;box-shadow:0 0 0 1.5px var(--surface)}
 .bar .sep{width:1px;height:24px;background:var(--line);margin-inline:4px}
 .lbl{font:12px "IBM Plex Mono",monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .big button{font-weight:500}
@@ -99,6 +101,7 @@ tr.out td{color:var(--muted)}
 <button id="tab-plan" data-t="plan" aria-pressed="false">План и экспликация</button>
 <button id="tab-site" data-t="sitetab" aria-pressed="false">Схема участка</button>
 </div>
+<div class="bar big" id="layers" hidden><span class="lbl">Сети</span></div>
 </div>
 
 <section id="v3">
@@ -111,7 +114,7 @@ tr.out td{color:var(--muted)}
 <div class="planbox">
 <div class="card">
 <div id="plan0" hidden>
-<svg id="fplan" viewBox="0 -270 760 1160" width="100%" role="img" style="min-width:540px"><title>План фундамента</title><desc>Монолитная плита 250 мм по контуру дома: сзади 7,7 м, спереди 10,0 м, длина 15,3 м, в правом переднем углу вырез под крыльцо. Рёбра под плитой показаны пунктиром, выпуски коммуникаций — кружками с кодами К, В, Э, З, выходы отопления — красными квадратиками О, трубы под плитой — цветным пунктиром, отдельные плиты крыльца и площадки у двери в сад, привязка к границе участков и переднему забору. Размеры в мм.</desc></svg>
+<svg id="fplan" viewBox="-90 -110 850 1000" width="100%" role="img" style="min-width:540px"><title>План фундамента</title><desc>Монолитная плита 250 мм по контуру дома: сзади 7,7 м, спереди 10,0 м, длина 15,3 м, в правом переднем углу вырез под крыльцо. Рёбра под плитой показаны пунктиром, выпуски коммуникаций — кружками с кодами К, В, Э, З, выходы отопления — красными квадратиками О, трубы под плитой — цветным пунктиром, отдельные плиты крыльца и площадки у двери в сад, привязка к границе участков и переднему забору. Размеры в мм.</desc></svg>
 <svg id="fsec" viewBox="0 0 680 300" width="100%" role="img" style="min-width:540px;margin-top:6px"><title>Край плиты в разрезе</title><desc>Разрез по наружной стене: стена 400, плита 250, ребро 400 × 400, ЭППС 100, подушка 300, утеплённая отмостка, отметки от чистого пола.</desc></svg>
 </div>
 <svg id="plan1" viewBox="0 0 680 760" width="100%" role="img" style="min-width:540px" hidden><title>План первого этажа</title><desc>Первый этаж, вариант 5: спереди дом шириной 10 м. Вход справа: крыльцо в правом переднем углу под вторым этажом, за ним большая прихожая-холл. Слева от фасада назад гостиная, за перегородкой с раздвижными стеклянными дверями кухня с островом и в узкой задней части столовая с выходом в сад. Справа прихожая-холл без перегородок до лестницы, со шкафом, вешалкой и обувницей, дальше лестница с кладовкой, санузел, бойлерная и детская. Размеры в мм.</desc></svg>
@@ -171,7 +174,7 @@ tr.out td{color:var(--muted)}
 <li><b>Замеры с эскиза.</b> Пунктир на эскизе я понял как границу между участками …299 и …300. Склад 5,5 × 5,6 м. Его задний угол со стороны дома стоит в 10,4 м от границы, от этого места вдоль границы до переднего забора 18,7 м. От заднего угла участка вдоль левого забора до склада 10,6 м. По модели от переднего угла склада до границы выходит 12,7 м и до переднего забора 13,6 м, у вас 12,8 и 13,5. Расхождение 10 см, это в пределах точности рулетки. Верхняя строчка на фото обрезана, поэтому размер «до забора у эл. столба» я не увидел.</li>
 <li><b>Участки.</b> Новый дом стоит на участке …299. Правая стена в 2 м от границы с …300, это обязательный отступ. Фасад в 4,5 м от переднего забора. Выступ смотрит в дальний конец участка, вход к воротам. На участке …300 уже стоит двухэтажный дом 11 × 10 м в 2 м от границы и в 6 м от переднего забора. Я нарисовал его по фото. Крыша двускатная несимметричная, конёк идёт от фасада к заднему забору и сдвинут вправо, длинный пологий скат смотрит на новый дом. Карниз примерно на 5 м, конёк на 7,6 м, это оценка по фото. Считаю, что фасад с гаражом смотрит на передний забор. Пристройки сзади не рисовал. Снег с длинного ската будет сходить в двухметровую полосу у границы, так что на этот скат стоит поставить снегозадержатели. Между домами получается 4 м. Это меньше обычного противопожарного разрыва между домами на соседних участках (от 6 м), стоит проверить, как это решается для ваших двух участков. По замерам левый забор проходит на 0,6–0,9 м дальше, чем по кадастровым цифрам, поэтому торец с воротами на плане вышел ≈8,8 м вместо 8. Его лучше перемерить. Забор высотой 2 м идёт по всему внешнему периметру обоих участков, между ними забора нет. Ворота 4,5 м без верхней балки и калитка стоят в нижнем левом торце, от калитки к крыльцу ведёт дорожка.</li>
 <li><b>Фундамент — монолитная плита 250 мм</b> ровно по контуру дома, 135,7 м². Снизу рёбра: по контуру 400 × 400 мм под наружными стенами и одно ребро 300 × 300 мм под несущей стеной вдоль дома, 13,2 м. Остальные стены первого этажа — перегородки, отдельные рёбра под ними не нужны. Верх плиты на −0,100, на стяжку и пол остаётся 100 мм. Низ плиты на уровне земли, низ рёбер на −0,750. Под плитой ЭППС 100 мм и песчано-щебёночная подушка 300 мм, торец плиты утеплён, вокруг утеплённая отмостка. Бетона под дом уходит ≈43,1 м³. Крыльцо в правом переднем углу и площадка у двери в сад стоят на отдельных плитах 200 мм через шов, под угловой стойкой крыльца отдельная опора. Сечения ориентировочные: армирование и точные размеры считает конструктор по геологии участка.</li>
-<li><b>Выпуски коммуникаций из плиты.</b> Всё, что должно торчать из плиты после заливки, показано в режиме «Только фундамент» и на плане фундамента, коды и привязки — в таблице рядом. Канализация: К1 мойка на кухне, К2 стояк общего санузла второго этажа в кухонной колонне, К3 унитаз, К4 стояк мастер-санузла второго этажа, К5 раковина, К6 трап душа, К7 стиральная и сушильная машины, К8 трап в бойлерной. Трубы 110 и 50 мм прокладывают в подушке под утеплителем с уклоном 2 % для 110 и 3 % для 50 к общему выпуску КВ через заднюю стену, оттуда труба 110 идёт ≈ 9 м к септику за складом. Через рёбра трубы идут в гильзах, выпуски выводят на 150–200 мм выше плиты и заглушают. Септик Ø 2 м стоит за складом у левого забора: край в 1 м от забора и в 5,2 м от угла дома. В бойлерной у правой стены ввод воды В1 в гильзе ниже промерзания, вода приходит из-за дома на …300 — за его задней стеной и по полосе между домом и границей, гильза под кабель Э1 и выпуск заземления З1 от контура. Кабель приходит от щита учёта на переднем заборе у границы участков: в трубе ПНД на глубине 0,8 м под площадкой для машины и дальше по полосе между домом и границей к гильзе Э1, ≈ 16 м. С водой он пересекается на разной глубине. Точку, где вода подключается за домом на …300, надо уточнить до закладки. Газ к котлу заводят через стену выше земли. Отопление показано красным: коллектор ОК у котла, трубы PEX 16 к радиаторам под окнами первого этажа О1–О6, полотенцесушитель О7 и стояк на второй этаж О8. Эти трубы кладут не в бетон, а поверх плиты в стяжку, через несущую стену — только в дверных проёмах. Но выходы из пола надо знать до стяжки. Разводка ориентировочная, под радиаторы; если захотите тёплый пол, стяжка и утеплитель будут другими. Места выпусков сверить с сантехником: точность ±20 мм.</li>
+<li><b>Выпуски коммуникаций из плиты.</b> Всё, что должно торчать из плиты после заливки, показано в режиме «Только фундамент» и на плане фундамента, коды и привязки — в таблице рядом. Канализация: К1 мойка на кухне, К2 стояк общего санузла второго этажа в кухонной колонне, К3 унитаз, К4 стояк мастер-санузла второго этажа, К5 раковина, К6 трап душа, К7 стиральная и сушильная машины, К8 трап в бойлерной. Трубы 110 и 50 мм прокладывают в подушке под утеплителем с уклоном 2 % для 110 и 3 % для 50 к общему выпуску КВ через заднюю стену, оттуда труба 110 идёт ≈ 10 м к септику за складом. Через рёбра трубы идут в гильзах, выпуски выводят на 150–200 мм выше плиты и заглушают. Септик квадратный, 2 × 2 м, стоит вплотную за складом у левого забора, стороны параллельны складу. До угла дома от него ≈ 3,8 м: для герметичного септика этого хватает, а если он с фильтрацией в грунт, обычно требуют от 5 м — это стоит уточнить у поставщика. В бойлерной у правой стены ввод воды В1 в гильзе ниже промерзания, вода приходит из-за дома на …300 — за его задней стеной и по полосе между домом и границей, гильза под кабель Э1 и выпуск заземления З1 от контура. Кабель приходит от щита учёта на переднем заборе у границы участков: в трубе ПНД на глубине 0,8 м под площадкой для машины и дальше по полосе между домом и границей к гильзе Э1, ≈ 16 м. С водой он пересекается на разной глубине. Точку, где вода подключается за домом на …300, надо уточнить до закладки. Газ к котлу заводят через стену выше земли. Отопление показано красным: коллектор ОК у котла, трубы PEX 16 к радиаторам под окнами первого этажа О1–О6, полотенцесушитель О7 и стояк на второй этаж О8. Эти трубы кладут не в бетон, а поверх плиты в стяжку, через несущую стену — только в дверных проёмах. Но выходы из пола надо знать до стяжки. Разводка ориентировочная, под радиаторы; если захотите тёплый пол, стяжка и утеплитель будут другими. Места выпусков сверить с сантехником: точность ±20 мм.</li>
 <li><b>Mercedes Atego с кузовом 7 м</b> (вся машина около 9,3 м) заезжает вдоль переднего забора и проезжает вперёд до границы второго участка. До забора 0,5 м, до фасада около 1,5 м, проход к крыльцу остаётся. Чтобы грузовик заезжал прямо вдоль забора, ворота 4,5 м сдвинуты в самый угол торца, калитка дальше по торцу. Это работает, если с улицы он подъезжает примерно вдоль переднего забора. Площадка засыпана асфальтной крошкой. Кузов высотой около 3,3 м будет стоять напротив окон гостиной и тамбура на фасаде и затенять его.</li>
 <li><b>Склад 5,5 × 5,6 м</b> стоит стороной 5,6 м вплотную к левому забору, под углом ≈24° к дому. Склад обшит OSB. Дверь пластиковая прозрачная, у склада два окна 1 × 1 м: рядом с дверью слева и справа за углом. Через 1 м после склада вдоль забора в сторону ворот стоит вагончик-бытовка 8 × 2,4 м на блоках: обшит серым профлистом, по контуру синий профиль, крыша плоская чёрная. Дверь справа на длинной стороне к двору, окна только в торцах. Между углом склада и задней частью дома проход 0,7 м, от передней широкой части до склада тоже 0,7 м. Склад стоит на стальных сваях с зазором 40 см от земли. Корпус высотой 3 м со стороны дома и 2 м у забора, крыша со скатом к забору. Вход через обычную пластиковую дверь с крыльцом из трёх ступенек в торце со стороны входа в дом.</li>
 <li><b>Вариант 5.</b> Форма дома как в четвёртом: сзади 7,7 м по линии выступа, с 6,4 м от задней стены одна ступенька и дальше до фасада 10 м, до склада везде 0,7 м. Вход справа: крыльцо 2,0 × 1,3 м утоплено в правый передний угол под второй этаж, на углу стойка. Входная дверь смотрит на фасад, прямо напротив ступенек крыльца, и ведёт сразу в большую прихожую-холл. Слева вся ширина от фасада до сада отдана дневной зоне: спереди гостиная, за ней кухня, в конце дома, в узкой части шириной 2,9 м, столовая с выходом в сад. Справа прихожая-холл с лестницей, санузел, бойлерная и детская. Крыша двускатная с коньком над несущей стеной, второй этаж полумансардный.</li>
@@ -272,8 +275,8 @@ ROOF:{ridge:3700,knee:2100}
   truck:{R:[150,17650],n:[1,0],rect:[[150,16400],[9450,16400],[9450,18900],[150,18900]]},
   pad:[[-6400+dX,16100],[XB,16100],[XB,19350],[-6700+dX,19350],[-8300+dX,17800]],
   path:[[wk[0]+pn[0],wk[1]+pn[1]],[st[0]+pn[0],st[1]+pn[1]],[st[0]-pn[0],st[1]-pn[1]],[wk[0]-pn[0],wk[1]-pn[1]]]};
- /* септик Ø 2 м за складом у левого забора: 6,2 м от заднего угла склада вдоль забора, центр в 2 м от забора — до угла дома > 5 м */
- const SEP=[NW[0]-v[0]*6200+u[0]*1900,NW[1]-v[1]*6200+u[1]*1900];
+ /* септик 2 × 2 м вплотную за складом у левого забора, стороны параллельны складу */
+ const sq=(a,b)=>[NW[0]+u[0]*a-v[0]*b,NW[1]+u[1]*a-v[1]*b],SEPP=[sq(0,0),sq(2000,0),sq(2000,2000),sq(0,2000)],SEP=sq(1000,1000);
  /* фундамент: монолитная плита заподлицо с наружными стенами, рёбра [x, y, по x, по y, глубина под плитой] */
  window.HOUSE.FUND={top:-100,t:250,
   contour:[[300,-400],[8000,-400],[8000,13600],[6000,13600],[6000,14900],[-2000,14900],[-2000,6000],[300,6000]],
@@ -296,7 +299,7 @@ ROOF:{ridge:3700,knee:2100}
     ['О7',5050,7000,16,'Полотенцесушитель в санузле','u'],['О8',5050,5800,20,'Стояк отопления на 2 этаж, в гардеробную','r'],['ОК',6800,5450,25,'Коллектор отопления у котла','u']],
    lines:[[[6800,5450],[5800,5450],[5800,300]],[[5800,550],[800,550],[800,5200]],[[6800,5450],[4400,5450],[4400,10800],[3000,10800],[3000,14350],[-400,14350]],
     [[4400,11700],[7450,11700]],[[4400,7000],[5050,7000]],[[6800,5450],[6800,5800],[5050,5800]]]},
-  exit:[5200,-400],sept:SEP,outSewer:[[5200,-400],[5200,-1500],SEP],waterIn:[[16500,1800],[9000,1800],[9000,5450]],
+  exit:[5200,-400],sept:SEP,septPts:SEPP,outSewer:[[5200,-400],[5200,-1500],SEP],waterIn:[[16500,1800],[9000,1800],[9000,5450]],
   /* кабель от щита учёта на переднем заборе у границы участков, в трубе ПНД под площадкой и вдоль правой стены */
   cableIn:[[9700,19250],[9400,18950],[9400,5100]],meter:[9700,19250],
   feeds:[['w',[9000,5450],[7450,5450],-1200],['e',[9400,5100],[7450,5100],-800],['z',[8600,4750],[7450,4750],-700]]};
@@ -395,7 +398,7 @@ drawPlan(document.getElementById('plan1'),{
  el('polyline',{points:P(FD.waterIn.concat([[8000,5450]])),fill:'none',stroke:'#2f6fb5','stroke-width':1.2,'stroke-dasharray':'4 3'});
  el('polyline',{points:P(FD.cableIn.concat([[8000,5100]])),fill:'none',stroke:'var(--ink)','stroke-width':1.2,'stroke-dasharray':'4 3'});
  el('rect',{x:X2(FD.meter[0])-4,y:Y2(FD.meter[1])-4,width:8,height:5,fill:'var(--ink)'});
- el('circle',{cx:X2(FD.sept[0]),cy:Y2(FD.sept[1]),r:1000*S2,fill:'var(--f-fill)',stroke:'#c8662e','stroke-width':1.5});
+ el('polygon',{points:P(FD.septPts),fill:'var(--f-fill)',stroke:'#c8662e','stroke-width':1.5});
  el('polygon',{points:P(K.pts),fill:'url(#hatch)',stroke:'var(--wall)','stroke-width':1.5});
  el('polygon',{points:P(K.cont.pts),fill:'var(--f-fill)',stroke:'var(--wall)','stroke-width':1.2});
  el('rect',{x:X2(O[0]),y:Y2(O[1]),width:(O[2]-O[0])*S2,height:(O[3]-O[1])*S2,fill:'var(--old)',stroke:'var(--muted)','stroke-width':1.5});
@@ -467,7 +470,7 @@ drawPlan(document.getElementById('plan1'),{
   ['Постройки',[['Новый дом','10,0 × 15,3','проект'],['Задняя часть дома','7,7 × 6,4','проект'],['Площадка у двери в сад','2,4 × 1,2','проект'],['Крыльцо','2,0 × 1,3','проект'],
    ['Склад',f1(K.W)+' × '+f1(K.L),'замер'],['Вагончик','8,0 × 2,4','проект'],['Дом на …300, 2 этажа','11 × 10','замер']]],
   ['Новый дом — привязка',[['До границы с …300',f1(XB-8000),'от вас'],['До переднего забора',f1(YF-14900),'проект'],['До заднего забора',f1(-400-PL.P1[1]),'расчёт'],
-   ['До дома на …300',f1(O[0]-8000),'расчёт'],['Септик Ø 2 м — угол дома, до края',f1(Math.hypot(FD.sept[0]-300,FD.sept[1]+400)-1000),'расчёт'],['Септик — левый забор, до края','1,0','проект'],['Задняя часть — угол склада',f1(300-TE[0]),'расчёт'],['Широкая часть — склад','0,7','от вас']]],
+   ['До дома на …300',f1(O[0]-8000),'расчёт'],['Септик 2 × 2 м — угол дома',f1(Math.min(...FD.septPts.map(q=>Math.hypot(q[0]-300,q[1]+400)))),'расчёт'],['Септик — склад','вплотную','от вас'],['Задняя часть — угол склада',f1(300-TE[0]),'расчёт'],['Широкая часть — склад','0,7','от вас']]],
   ['Склад и вагончик',[['Задний угол участка — склад, вдоль забора','10,6','замер'],['Задний угол склада — граница',f1(XB-TE[0]),'замер'],
    ['Передний угол склада — граница',f1(XB-SE[0]),'замер: 12,8'],['От заднего угла склада вдоль границы до переднего забора',f1(YF-TE[1]),'замер'],
    ['Передний угол склада — передний забор',f1(YF-SE[1]),'замер: 13,5'],['Склад — вагончик','1,0','проект'],['Вагончик — угол у ворот',f1(LF-K.L-9000),'расчёт']]],
@@ -513,25 +516,30 @@ drawPlan(document.getElementById('plan2'),{
  {const e=T(X(PL.XB)-5,Y(17100),'граница с …300','ts');e.setAttribute('transform','rotate(-90 '+e.getAttribute('x')+' '+e.getAttribute('y')+')');}
  el('line',{x1:X(-2600),x2:X(PL.XB),y1:Y(PL.YF),y2:Y(PL.YF),stroke:'var(--ink)','stroke-width':2.5,'stroke-linecap':'round'});
  T(X(4000),Y(PL.YF)-7,'передний забор','ts');
+ /* склад — для привязки септика */
+ el('polygon',{points:PT(HS.SKLAD.pts),fill:'url(#hatch)',stroke:'var(--wall)','stroke-width':1.2});T(X(-4300),Y(1900),'склад','ts halo');
  /* плита, рёбра под ней пунктиром, отдельная плита крыльца */
  el('polygon',{points:PT(F.contour),fill:'var(--conc)',stroke:'var(--wall)','stroke-width':1.6});
  F.ribs.forEach(r=>R(r[0],r[1],r[2],r[3],{fill:'var(--rib)',stroke:'var(--wall)','stroke-width':0.7,'stroke-dasharray':'4 2'}));
  F.porch.forEach(r=>R(r[0],r[1],r[2],r[3],{fill:'var(--conc)',stroke:'var(--wall)','stroke-width':1}));
  /* коммуникации: трубы под плитой пунктиром, выпуски кружками с кодами */
  const UC={k:'#c8662e',w:'#2f6fb5',o:'#d23b3b',e:'var(--ink)',z:'#9a8a2e'};
- F.heat.lines.forEach(l=>el('polyline',{points:PT(l),fill:'none',stroke:UC.o,'stroke-width':1.6,'stroke-dasharray':'2 2'}));
- F.sewer.forEach(l=>el('polyline',{points:PT(l),fill:'none',stroke:UC.k,'stroke-width':1.6,'stroke-dasharray':'5 3'}));
- F.feeds.forEach(([k,a,b])=>el('line',{x1:X(a[0]),y1:Y(a[1]),x2:X(b[0]),y2:Y(b[1]),stroke:UC[k],'stroke-width':1.6,'stroke-dasharray':'5 3'}));
- el('polyline',{points:PT(F.outSewer),fill:'none',stroke:UC.k,'stroke-width':1.6,'stroke-dasharray':'5 3'});
- el('circle',{cx:X(F.sept[0]),cy:Y(F.sept[1]),r:1000*S,fill:'var(--surface)',stroke:UC.k,'stroke-width':1.5});T(X(F.sept[0]),Y(F.sept[1])+4,'септик','ts','middle',UC.k);
- el('polyline',{points:PT(F.cableIn),fill:'none',stroke:UC.e,'stroke-width':1.4,'stroke-dasharray':'5 3'});
- el('rect',{x:X(F.meter[0])-5,y:Y(F.meter[1])-5,width:10,height:6,fill:UC.e});T(X(9300),Y(17600),'кабель от щита на заборе','ts halo','end');
- el('polyline',{points:PT(F.waterIn),fill:'none',stroke:UC.w,'stroke-width':1.6,'stroke-dasharray':'5 3'});T(X(10150),Y(1800)-5,'вода из-за дома на …300','ts halo','start',UC.w);
- el('circle',{cx:X(F.exit[0]),cy:Y(F.exit[1]),r:4,fill:'var(--surface)',stroke:UC.k,'stroke-width':2});T(X(F.exit[0])+8,Y(-1200),'КВ выпуск 110 → септик','ts halo','start',UC.k);
- F.util.forEach(u=>{const px=X(u[2]),py=Y(u[3]);el('circle',{cx:px,cy:py,r:u[4]>=100?5:3.6,fill:UC[u[1]],stroke:'var(--surface)','stroke-width':1});
-  const o=u[6]==='l'?[-7,4,'end']:u[6]==='u'?[0,-8,'middle']:[7,4,'start'];T(px+o[0],py+o[1],u[0],'ts halo',o[2],UC[u[1]]).style.fontWeight='600';});
- F.heat.pts.forEach(h=>{const px=X(h[1]),py=Y(h[2]);el('rect',{x:px-3.5,y:py-3.5,width:7,height:7,fill:UC.o,stroke:'var(--surface)','stroke-width':1});
-  const o=h[5]==='l'?[-7,4,'end']:h[5]==='u'?[0,-8,'middle']:[7,4,'start'];T(px+o[0],py+o[1],h[0],'ts halo',o[2],UC.o).style.fontWeight='600';});
+ /* каждый слой сетей — своя группа, её прячут кнопки «Сети» */
+ const LGs={};['k','w','o','e','z'].forEach(k=>LGs[k]=el('g',{class:'ul','data-k':k}));
+ const inL=(k,f)=>{const last=svg.lastChild;f();let n=last.nextSibling;while(n){const nx=n.nextSibling;LGs[k].appendChild(n);n=nx;}};
+ inL('o',()=>F.heat.lines.forEach(l=>el('polyline',{points:PT(l),fill:'none',stroke:UC.o,'stroke-width':1.6,'stroke-dasharray':'2 2'})));
+ inL('k',()=>F.sewer.forEach(l=>el('polyline',{points:PT(l),fill:'none',stroke:UC.k,'stroke-width':1.6,'stroke-dasharray':'5 3'})));
+ F.feeds.forEach(([k,a,b])=>inL(k,()=>el('line',{x1:X(a[0]),y1:Y(a[1]),x2:X(b[0]),y2:Y(b[1]),stroke:UC[k],'stroke-width':1.6,'stroke-dasharray':'5 3'})));
+ inL('k',()=>{el('polyline',{points:PT(F.outSewer),fill:'none',stroke:UC.k,'stroke-width':1.6,'stroke-dasharray':'5 3'});
+ el('polygon',{points:PT(F.septPts),fill:'var(--surface)',stroke:UC.k,'stroke-width':1.5});T(X(F.sept[0]),Y(F.sept[1])+4,'септик','ts','middle',UC.k);});
+ inL('e',()=>{el('polyline',{points:PT(F.cableIn),fill:'none',stroke:UC.e,'stroke-width':1.4,'stroke-dasharray':'5 3'});
+ el('rect',{x:X(F.meter[0])-5,y:Y(F.meter[1])-5,width:10,height:6,fill:UC.e});T(X(9300),Y(17600),'кабель от щита на заборе','ts halo','end');});
+ inL('w',()=>{el('polyline',{points:PT(F.waterIn),fill:'none',stroke:UC.w,'stroke-width':1.6,'stroke-dasharray':'5 3'});T(X(10150),Y(1800)-5,'вода из-за дома на …300','ts halo','start',UC.w);});
+ inL('k',()=>{el('circle',{cx:X(F.exit[0]),cy:Y(F.exit[1]),r:4,fill:'var(--surface)',stroke:UC.k,'stroke-width':2});T(X(F.exit[0])+8,Y(-1200),'КВ выпуск 110 → септик','ts halo','start',UC.k);});
+ F.util.forEach(u=>inL(u[1],()=>{const px=X(u[2]),py=Y(u[3]);el('circle',{cx:px,cy:py,r:u[4]>=100?5:3.6,fill:UC[u[1]],stroke:'var(--surface)','stroke-width':1});
+  const o=u[6]==='l'?[-7,4,'end']:u[6]==='u'?[0,-8,'middle']:[7,4,'start'];T(px+o[0],py+o[1],u[0],'ts halo',o[2],UC[u[1]]).style.fontWeight='600';}));
+ inL('o',()=>F.heat.pts.forEach(h=>{const px=X(h[1]),py=Y(h[2]);el('rect',{x:px-3.5,y:py-3.5,width:7,height:7,fill:UC.o,stroke:'var(--surface)','stroke-width':1});
+  const o=h[5]==='l'?[-7,4,'end']:h[5]==='u'?[0,-8,'middle']:[7,4,'start'];T(px+o[0],py+o[1],h[0],'ts halo',o[2],UC.o).style.fontWeight='600';}));
  {const tb=document.getElementById('tu'),f1=v=>(v/1000).toFixed(2).replace('.',','),side=x=>x<3700?'от левой '+f1(x-(-2000)):'от правой '+f1(8000-x);
   F.util.concat([['КВ','k',F.exit[0],-400,110,'Выпуск канализации через заднюю стену в гильзе, дальше ≈ '+(1.1+Math.hypot(F.sept[0]-5200,F.sept[1]+1500)/1000).toFixed(1).replace('.',',')+' м к септику']]).forEach(u=>{const tr=tb.insertRow();
    tr.insertCell().textContent=u[0];tr.cells[0].style.color=UC[u[1]]==='var(--ink)'?'':UC[u[1]];
@@ -584,7 +592,7 @@ drawPlan(document.getElementById('plan2'),{
 (function(){
 const HS=window.HOUSE;
 const msg=document.getElementById('msg');
-const state={floor:2,tab:'v3',view:'front',cut:false,roof:true,truck:true};
+const state={floor:2,tab:'v3',view:'front',cut:false,roof:true,truck:true,lay:{k:true,w:true,o:true,e:true,z:true}};
 const VIEWS={1:[['all','Общий вид'],['top','Сверху'],['front','Со стороны входа'],['entry','Крыльцо'],['nw','Со стороны склада'],['site','Участок и склад'],['truck','Ворота и Атего'],['old','Дом на …300'],['dining','Столовая'],['living','Гостиная'],['kitchen','Кухня'],['corridor','Холл'],['stair','Лестница'],['stairtop','Лестница сверху'],['bedroom','Детская'],['priem','Прихожая'],['priemtop','Прихожая сверху'],['boiler','Бойлерная'],['glass','Перегородка']],
  2:[['front','Со стороны входа'],['entry','Крыльцо'],['nw','Со стороны склада'],['site','Участок и склад'],['truck','Ворота и Атего'],['old','Дом на …300'],['all2','Общий вид'],['top2','Сверху'],['master','Мастер-спальня'],['lounge','Мастер: зона отдыха'],['closet','Гардеробная'],['nwbed','Спальня у склада'],['swbed','Спальня справа спереди'],['corridor2','Коридор и лестница'],['cabinet','Спальня слева спереди']],
  0:[['fall','Общий вид'],['ftop','Сверху'],['ffront','Со стороны входа'],['fnw','Со стороны склада'],['fbelow','Снизу, рёбра'],['futil','Выпуски крупно']]};
@@ -602,8 +610,13 @@ function syncRoof(){roofBtn.setAttribute('aria-pressed',state.roof&&state.floor=
 function applyFloor(){
  document.querySelectorAll('#floors button[data-f]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.f===state.floor));
  ['0','1','2'].forEach(n=>['plan','t'].forEach(p=>document.getElementById(p+n).toggleAttribute('hidden',+n!==state.floor)));
- syncRoof();
+ syncRoof();document.getElementById('layers').hidden=state.floor!==0;
 }
+/* кнопки слоёв сетей в режиме «Только фундамент»: прячут трубы и выпуски в 3D и на плане фундамента */
+[['k','Канализация','#d9722b'],['w','Вода','#2f6fb5'],['o','Отопление','#d23b3b'],['e','Электричество','#222222'],['z','Заземление','#b8a14a']].forEach(([k,t,c])=>{
+ const b=document.createElement('button');b.id='ly-'+k;b.innerHTML='<span class="dot" style="background:'+c+'"></span>'+t;b.setAttribute('aria-pressed','true');
+ b.onclick=()=>{state.lay[k]=!state.lay[k];b.setAttribute('aria-pressed',state.lay[k]);document.querySelectorAll('#fplan .ul[data-k="'+k+'"]').forEach(g=>g.classList.toggle('off',!state.lay[k]));api&&api.layers(state.lay);};
+ document.getElementById('layers').appendChild(b);});
 document.querySelectorAll('#floors button[data-f]').forEach(b=>b.addEventListener('click',()=>{
  state.floor=+b.dataset.f;state.view=['fall','all','all2'][state.floor];applyFloor();renderViews();if(api){api.floor(state.floor);api.go(state.view);}
 }));
@@ -968,28 +981,30 @@ scene.children.filter(o=>o!==f1&&o!==f2&&o!==roofGrp&&o!==fundG&&o!==sun.target&
 scene.add(siteG);
 /* коммуникации под плитой и выпуски: видны только в режиме «Только фундамент» */
 const utilG=new THREE.Group();utilG.visible=false;scene.add(utilG);
+/* слои сетей: канализация, вода, отопление, электричество, заземление — включаются кнопками */
+const LG={};['k','w','o','e','z'].forEach(k=>{LG[k]=new THREE.Group();utilG.add(LG[k]);});let LY='k';
 {const UC={k:'#d9722b',w:'#2f6fb5',o:'#d23b3b',e:'#222222',z:'#b8a14a'},ZS=-550;
- const up=(x,y,r,z0,z1,c)=>{const me=new THREE.Mesh(new THREE.CylinderGeometry(mm(r),mm(r),mm(z1-z0),20),mat(c));me.position.set(mm(x),mm((z0+z1)/2),mm(y));utilG.add(me);return me;};
+ const up=(x,y,r,z0,z1,c)=>{const me=new THREE.Mesh(new THREE.CylinderGeometry(mm(r),mm(r),mm(z1-z0),20),mat(c));me.position.set(mm(x),mm((z0+z1)/2),mm(y));LG[LY].add(me);return me;};
  const tag=(txt,x,y,z,c)=>{const cv2=document.createElement('canvas'),F36='bold 36px sans-serif';let g=cv2.getContext('2d');g.font=F36;
   const w=Math.max(128,Math.ceil(g.measureText(txt).width)+32);cv2.width=w;cv2.height=64;g=cv2.getContext('2d');g.fillStyle=c;g.fillRect(4,6,w-8,52);
   g.fillStyle='#fff';g.font=F36;g.textAlign='center';g.textBaseline='middle';g.fillText(txt,w/2,34);
-  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(cv2),depthTest:false,sizeAttenuation:false}));sp.scale.set(0.07*w/128,0.035,1);sp.position.set(mm(x),mm(z),mm(y));sp.renderOrder=10;utilG.add(sp);};
- FD.sewer.forEach(l=>{for(let i=1;i<l.length;i++)bar(l[i-1],l[i],110,ZS-55,110,UC.k,utilG);});
- FD.feeds.forEach(([k,a,b,z])=>{bar(a,b,k==='z'?40:k==='w'?40:70,z,k==='z'?10:k==='w'?40:70,UC[k],utilG);});
- FD.util.forEach(u=>{const k=u[1],top=k==='w'?300:200,z0=k==='k'?ZS:FD.feeds.find(f=>f[0]===k)[3];
-  if(k==='z')B(u[2]-20,u[3]-5,40,10,z0,top-z0,UC.z,utilG);else{up(u[2],u[3],(k==='k'?u[4]:k==='w'?40:70)/2,z0,top,UC[k]);up(u[2],u[3],(k==='k'?u[4]+20:k==='w'?60:90)/2,top-20,top,'#f2f2f2');}
+  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(cv2),depthTest:false,sizeAttenuation:false}));sp.scale.set(0.07*w/128,0.035,1);sp.position.set(mm(x),mm(z),mm(y));sp.renderOrder=10;LG[LY].add(sp);};
+ FD.sewer.forEach(l=>{for(let i=1;i<l.length;i++)bar(l[i-1],l[i],110,ZS-55,110,UC.k,LG.k);});
+ FD.feeds.forEach(([k,a,b,z])=>{bar(a,b,k==='z'?40:k==='w'?40:70,z,k==='z'?10:k==='w'?40:70,UC[k],LG[k]);});
+ FD.util.forEach(u=>{const k=u[1];LY=k;const top=k==='w'?300:200,z0=k==='k'?ZS:FD.feeds.find(f=>f[0]===k)[3];
+  if(k==='z')B(u[2]-20,u[3]-5,40,10,z0,top-z0,UC.z,LG.z);else{up(u[2],u[3],(k==='k'?u[4]:k==='w'?40:70)/2,z0,top,UC[k]);up(u[2],u[3],(k==='k'?u[4]+20:k==='w'?60:90)/2,top-20,top,'#f2f2f2');}
   tag(u[0],u[2],u[3],top+320,UC[k]);});
- FD.heat.lines.forEach(l=>{for(let i=1;i<l.length;i++)bar(l[i-1],l[i],70,-90,35,UC.o,utilG);});
+ LY='o';FD.heat.lines.forEach(l=>{for(let i=1;i<l.length;i++)bar(l[i-1],l[i],70,-90,35,UC.o,LG.o);});
  FD.heat.pts.forEach(h=>{const r=h[3]/2+2;[-35,35].forEach(d=>up(h[1]+d,h[2],r,-100,250,UC.o));tag(h[0],h[1],h[2],570,UC.o);});
- for(let i=1;i<FD.outSewer.length;i++)bar(FD.outSewer[i-1],FD.outSewer[i],110,ZS-55-150*i,110,UC.k,utilG);
- for(let i=1;i<FD.waterIn.length;i++)bar(FD.waterIn[i-1],FD.waterIn[i],40,-1200,40,UC.w,utilG);
- for(let i=1;i<FD.cableIn.length;i++)bar(FD.cableIn[i-1],FD.cableIn[i],70,-800,70,UC.e,utilG);
- up(FD.cableIn[0][0],FD.cableIn[0][1],35,-800,700,UC.e);tag('щит учёта',FD.cableIn[0][0],FD.cableIn[0][1],2300,UC.e);
+ for(let i=1;i<FD.outSewer.length;i++)bar(FD.outSewer[i-1],FD.outSewer[i],110,ZS-55-150*i,110,UC.k,LG.k);
+ for(let i=1;i<FD.waterIn.length;i++)bar(FD.waterIn[i-1],FD.waterIn[i],40,-1200,40,UC.w,LG.w);
+ for(let i=1;i<FD.cableIn.length;i++)bar(FD.cableIn[i-1],FD.cableIn[i],70,-800,70,UC.e,LG.e);
+ LY='e';up(FD.cableIn[0][0],FD.cableIn[0][1],35,-800,700,UC.e);tag('щит учёта',FD.cableIn[0][0],FD.cableIn[0][1],2300,UC.e);
  /* щит учёта на переднем заборе у границы участков — виден всегда */
  {const mb=new THREE.Mesh(new THREE.BoxGeometry(0.4,0.6,0.2),mat('#d8d8d4'));mb.position.set(mm(FD.meter[0]),mm(-350+1300),mm(FD.meter[1]));mb.castShadow=true;siteG.add(mb);}
- tag('КВ',FD.exit[0],FD.exit[1]-300,-350+420,UC.k);tag('септик',FD.sept[0],FD.sept[1],900,UC.k);tag('вода',FD.waterIn[0][0],FD.waterIn[0][1],600,UC.w);up(FD.waterIn[0][0],FD.waterIn[0][1],20,-1200,-300,UC.w);
+ LY='k';tag('КВ',FD.exit[0],FD.exit[1]-300,-350+420,UC.k);tag('септик',FD.sept[0],FD.sept[1],900,UC.k);LY='w';tag('вода',FD.waterIn[0][0],FD.waterIn[0][1],600,UC.w);up(FD.waterIn[0][0],FD.waterIn[0][1],20,-1200,-300,UC.w);
  /* септик: бак под землёй, горловина с зелёной крышкой на уровне земли — виден всегда */
- const sb=new THREE.Mesh(new THREE.CylinderGeometry(1,1,1.9,32),mat('#3f5f4a'));sb.position.set(mm(FD.sept[0]),mm(-400-950),mm(FD.sept[1]));siteG.add(sb);
+ const sb=new THREE.Mesh(new THREE.BoxGeometry(2,1.9,2),mat('#3f5f4a'));sb.position.set(mm(FD.sept[0]),mm(-400-950),mm(FD.sept[1]));sb.rotation.y=HS.SKLAD.rot;siteG.add(sb);
  const sl=new THREE.Mesh(new THREE.CylinderGeometry(0.33,0.33,0.12,24),mat('#2f6b3a'));sl.position.set(mm(FD.sept[0]),mm(-350+60),mm(FD.sept[1]));sl.castShadow=true;siteG.add(sl);}
 const grid=new THREE.GridHelper(36,36,0x6f7a7c,0xa9b1af);grid.position.set(3.6,-0.353,6.6);
 grid.material.transparent=true;grid.material.opacity=0.5;grid.visible=false;scene.add(grid);
@@ -1037,8 +1052,8 @@ const groundMs=[gnd.material,mat('#a9bd92'),mat('#b6c7a2'),mat('#c9c2b6'),mat('#
 api={go:k=>{const v=V[k];if(v[3]!==undefined){state.roof=v[3];syncRoof();}roofVis();setView(v[0],v[1],v[2]);},
  cut:c=>{walls(c);roofG.visible=!c;roofVis();draw();},floor:n=>{const F=n===0;f1.visible=!F;f2.visible=n===2;siteG.visible=true;grid.visible=F;utilG.visible=F;
   groundMs.forEach(m=>{m.transparent=F;m.opacity=F?0.45:1;m.depthWrite=!F;m.needsUpdate=true;});
-  concM.transparent=F;concM.opacity=F?0.72:1;concM.needsUpdate=true;roofVis();draw();},roof:()=>{roofVis();draw();},truck:()=>{const t=scene.getObjectByName('truck');if(t)t.visible=state.truck;draw();},resize};
-api.floor(state.floor);api.go(state.view);
+  concM.transparent=F;concM.opacity=F?0.72:1;concM.needsUpdate=true;roofVis();draw();},roof:()=>{roofVis();draw();},layers:l=>{Object.keys(LG).forEach(k=>LG[k].visible=!!l[k]);draw();},truck:()=>{const t=scene.getObjectByName('truck');if(t)t.visible=state.truck;draw();},resize};
+api.floor(state.floor);api.layers(state.lay);api.go(state.view);
 }
 })();
 </script>
