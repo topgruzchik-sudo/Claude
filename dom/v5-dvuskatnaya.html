@@ -94,7 +94,7 @@ tr.out td{color:var(--muted)}
 <button id="fl-0" data-f="0" aria-pressed="false">Только фундамент</button>
 <span class="sep" aria-hidden="true"></span>
 <button id="roof-btn" aria-pressed="true">Крыша</button>
-<button id="truck-btn" aria-pressed="true" title="Показать или убрать грузовик у ворот">Машина</button>
+<button id="truck-btn" aria-pressed="false" title="Показать или убрать грузовик у ворот">Машина</button>
 </div>
 <div class="bar big" id="tabs"><span class="lbl">Вид</span>
 <button id="tab-3d" data-t="v3" aria-pressed="true">3D-модель</button>
@@ -177,7 +177,7 @@ tr.out td{color:var(--muted)}
 
 <section id="sitetab" hidden>
 <div class="card">
-<svg id="site" viewBox="0 0 729 581" width="100%" role="img" style="min-width:560px"><title>Схема участков</title><desc>Участки …299 и …300 со всеми размерами: длины заборов, склад 5,5 × 5,6 и вагончик вдоль левого забора, новый дом 10 × 15,3 с одной ступенькой к складу, существующий дом 11 × 10, ворота, привязки построек к заборам и границе.</desc></svg>
+<svg id="site" class="no-truck" viewBox="0 0 729 581" width="100%" role="img" style="min-width:560px"><title>Схема участков</title><desc>Участки …299 и …300 со всеми размерами: длины заборов, склад 5,5 × 5,6 и вагончик вдоль левого забора, новый дом 10 × 15,3 с одной ступенькой к складу, существующий дом 11 × 10, ворота, привязки построек к заборам и границе.</desc></svg>
 <p class="hint" style="margin-top:8px"><b style="color:var(--accent);font-weight:500">Бирюзовым</b> — ваши замеры и требования, <b style="color:var(--muted);font-weight:500">серым</b> — остальное: проект, кадастр, мои допущения и расчёт. Размеры в метрах.</p>
 </div>
 <div class="dims" id="dims"></div>
@@ -619,7 +619,7 @@ drawPlan(document.getElementById('plan2'),{
 (function(){
 const HS=window.HOUSE;
 const msg=document.getElementById('msg');
-const state={floor:2,tab:'v3',view:'front',cut:false,roof:true,truck:true,lay:{k:true,w:true,o:true,e:true,z:true},ceil:true,form:false};
+const state={floor:2,tab:'v3',view:'front',cut:false,roof:true,truck:false,lay:{k:false,w:false,o:false,e:false,z:false},ceil:true,form:false};
 const VIEWS={1:[['all','Общий вид'],['top','Сверху'],['front','Со стороны входа'],['entry','Крыльцо'],['nw','Со стороны склада'],['site','Участок и склад'],['truck','Ворота и Атего'],['old','Дом на …300'],['dining','Столовая'],['living','Гостиная'],['kitchen','Кухня'],['corridor','Холл'],['stair','Лестница'],['stairtop','Лестница сверху'],['bedroom','Детская'],['priem','Прихожая'],['priemtop','Прихожая сверху'],['boiler','Бойлерная'],['glass','Перегородка'],['pit','Вход в подвал'],['basement','Подвал']],
  2:[['front','Со стороны входа'],['entry','Крыльцо'],['nw','Со стороны склада'],['site','Участок и склад'],['truck','Ворота и Атего'],['old','Дом на …300'],['all2','Общий вид'],['top2','Сверху'],['master','Мастер-спальня'],['lounge','Мастер: зона отдыха'],['closet','Гардеробная'],['nwbed','Спальня у склада'],['swbed','Спальня справа спереди'],['corridor2','Коридор и лестница'],['cabinet','Спальня слева спереди']],
  0:[['fall','Общий вид'],['ftop','Сверху'],['ffront','Со стороны входа'],['fnw','Со стороны склада'],['fbelow','Снизу, рёбра'],['futil','Выпуски крупно'],['pit','Приямок'],['basement','Подвал внутри'],['fform','Опалубка крупно']]};
@@ -644,7 +644,8 @@ function applyFloor(){
  b.onclick=()=>{state[k]=!state[k];b.setAttribute('aria-pressed',state[k]);api&&api.build();};document.getElementById('build').appendChild(b);});
 /* кнопки слоёв сетей в режиме «Только фундамент»: прячут трубы и выпуски в 3D и на плане фундамента */
 [['k','Канализация','#d9722b'],['w','Вода','#2f6fb5'],['o','Отопление','#d23b3b'],['e','Электричество','#222222'],['z','Заземление','#b8a14a']].forEach(([k,t,c])=>{
- const b=document.createElement('button');b.id='ly-'+k;b.innerHTML='<span class="dot" style="background:'+c+'"></span>'+t;b.setAttribute('aria-pressed','true');
+ const b=document.createElement('button');b.id='ly-'+k;b.innerHTML='<span class="dot" style="background:'+c+'"></span>'+t;b.setAttribute('aria-pressed',state.lay[k]);
+ document.querySelectorAll('#fplan .ul[data-k="'+k+'"]').forEach(g=>g.classList.toggle('off',!state.lay[k]));
  b.onclick=()=>{state.lay[k]=!state.lay[k];b.setAttribute('aria-pressed',state.lay[k]);document.querySelectorAll('#fplan .ul[data-k="'+k+'"]').forEach(g=>g.classList.toggle('off',!state.lay[k]));api&&api.layers(state.lay);};
  document.getElementById('layers').appendChild(b);});
 document.querySelectorAll('#floors button[data-f]').forEach(b=>b.addEventListener('click',()=>{
