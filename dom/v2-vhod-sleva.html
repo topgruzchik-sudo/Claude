@@ -41,6 +41,7 @@ h1{font-size:clamp(22px,4vw,30px);font-weight:600;margin:0;letter-spacing:-.01em
 .bar button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .bar button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .bar button:disabled{opacity:.45;cursor:default}
+#site.no-truck .truck2d{display:none}
 .bar .sep{width:1px;height:24px;background:var(--line);margin-inline:4px}
 .lbl{font:12px "IBM Plex Mono",monospace;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .big button{font-weight:500}
@@ -91,6 +92,7 @@ tr.out td{color:var(--muted)}
 <button id="fl-0" data-f="0" aria-pressed="false">Только фундамент</button>
 <span class="sep" aria-hidden="true"></span>
 <button id="roof-btn" aria-pressed="true">Крыша</button>
+<button id="truck-btn" aria-pressed="true" title="Показать или убрать грузовик у ворот">Машина</button>
 </div>
 <div class="bar big" id="tabs"><span class="lbl">Вид</span>
 <button id="tab-3d" data-t="v3" aria-pressed="true">3D-модель</button>
@@ -358,8 +360,8 @@ drawPlan(document.getElementById('plan1'),{
  const along=(p,q,d)=>{const L=Math.hypot(q[0]-p[0],q[1]-p[1]);return [p[0]+(q[0]-p[0])*d/L,p[1]+(q[1]-p[1])*d/L];};
  [PL.gate.gate,PL.gate.wicket].forEach(g=>{const a=along(PL.P4,PL.P5,g[0]),b=along(PL.P4,PL.P5,g[1]);el('line',{x1:X2(a[0]),y1:Y2(a[1]),x2:X2(b[0]),y2:Y2(b[1]),stroke:'var(--accent)','stroke-width':6});});
  el('polygon',{points:P(PL.pad),fill:'#5a5c60',stroke:'none'});
- el('polygon',{points:P(PL.truck.rect),fill:'var(--f-fill)',stroke:'var(--ink)','stroke-width':1.2});
- {const c=PL.truck.rect.reduce((a,p)=>[a[0]+p[0]/4,a[1]+p[1]/4],[0,0]);T(c[0],c[1]+150,'Атего, кузов 7 м','ra');}
+ el('polygon',{points:P(PL.truck.rect),fill:'var(--f-fill)',stroke:'var(--ink)','stroke-width':1.2,class:'truck2d'});
+ {const c=PL.truck.rect.reduce((a,p)=>[a[0]+p[0]/4,a[1]+p[1]/4],[0,0]);T(c[0],c[1]+150,'Атего, кузов 7 м','ra truck2d');}
  el('polygon',{points:P(PL.path),fill:'var(--deck)',stroke:'none'});
  el('polygon',{points:P(FD.contour),fill:'var(--f-fill)',stroke:'var(--wall)','stroke-width':1.5});
  [[-400,13600,4000,1300],[600,14900,1400,600],FD.porch[2]].forEach(r=>el('rect',{x:X2(r[0]),y:Y2(r[1]),width:r[2]*S2,height:r[3]*S2,fill:'var(--deck)',stroke:'var(--f-stroke)','stroke-width':0.8}));
@@ -531,7 +533,7 @@ drawPlan(document.getElementById('plan2'),{
 (function(){
 const HS=window.HOUSE;
 const msg=document.getElementById('msg');
-const state={floor:2,tab:'v3',view:'front',cut:false,roof:true};
+const state={floor:2,tab:'v3',view:'front',cut:false,roof:true,truck:true};
 const VIEWS={1:[['all','Общий вид'],['top','Сверху'],['front','Со стороны входа'],['nw','Со стороны склада'],['site','Участок и склад'],['truck','Ворота и Атего'],['old','Дом на …300'],['dining','Столовая'],['living','Гостиная'],['kitchen','Кухня'],['corridor','Коридор'],['stair','Лестница'],['stairtop','Лестница сверху'],['bedroom','Спальня']],
  2:[['front','Со стороны входа'],['nw','Со стороны склада'],['site','Участок и склад'],['truck','Ворота и Атего'],['old','Дом на …300'],['all2','Общий вид'],['top2','Сверху'],['master','Мастер-спальня'],['lounge','Мастер: зона отдыха'],['closet','Гардеробная'],['nwbed','Спальня у склада'],['swbed','Спальня спереди'],['corridor2','Коридор и лестница'],['cabinet','Кабинет'],['balcony','Балкон']],
  0:[['fall','Общий вид'],['ftop','Сверху'],['ffront','Со стороны входа'],['fnw','Со стороны склада'],['fbelow','Снизу, рёбра']]};
@@ -555,6 +557,8 @@ document.querySelectorAll('#floors button[data-f]').forEach(b=>b.addEventListene
  state.floor=+b.dataset.f;state.view=['fall','all','all2'][state.floor];applyFloor();renderViews();if(api){api.floor(state.floor);api.go(state.view);}
 }));
 roofBtn.addEventListener('click',()=>{state.roof=!state.roof;syncRoof();api&&api.roof();});
+const truckBtn=document.getElementById('truck-btn');
+truckBtn.addEventListener('click',()=>{state.truck=!state.truck;truckBtn.setAttribute('aria-pressed',state.truck);document.getElementById('site').classList.toggle('no-truck',!state.truck);api&&api.truck();});
 document.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',()=>{
  state.tab=b.dataset.t;document.querySelectorAll('#tabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));
  ['v3','plan','sitetab'].forEach(id=>document.getElementById(id).hidden=state.tab!==id);
@@ -778,7 +782,7 @@ function roofVis(){roofGrp.visible=state.floor===2&&state.roof&&!state.cut;}
   }
  });
  /* Mercedes Atego: кузов 7 м, всего ≈ 9,3 × 2,5 × 3,4 м */
- const T=PL.truck,tg=new THREE.Group();scene.add(tg);
+ const T=PL.truck,tg=new THREE.Group();tg.name='truck';tg.visible=state.truck;scene.add(tg);
  tg.position.set(mm(T.R[0]),0,mm(T.R[1]));tg.rotation.y=Math.atan2(T.n[0],T.n[1]);
  const TB=(x,z,w,d,y,h,c,o)=>{const me=new THREE.Mesh(new THREE.BoxGeometry(mm(w),mm(h),mm(d)),mat(c,o));
   me.position.set(mm(x+w/2),mm(-350+y+h/2),mm(z+d/2));me.castShadow=true;me.receiveShadow=true;tg.add(me);return me;};
@@ -918,7 +922,7 @@ cv.addEventListener('wheel',e=>{e.preventDefault();zoom(e.deltaY>0?1.1:0.9);draw
 if(window.ResizeObserver)new ResizeObserver(resize).observe(box);else window.addEventListener('resize',resize);
 api={go:k=>{const v=V[k];if(v[3]!==undefined){state.roof=v[3];syncRoof();}roofVis();setView(v[0],v[1],v[2]);},
  cut:c=>{walls(c);roofG.visible=!c;roofVis();draw();},floor:n=>{const F=n===0;f1.visible=!F;f2.visible=n===2;siteG.visible=!F;grid.visible=F;
-  concM.transparent=F;concM.opacity=F?0.72:1;concM.needsUpdate=true;roofVis();draw();},roof:()=>{roofVis();draw();},resize};
+  concM.transparent=F;concM.opacity=F?0.72:1;concM.needsUpdate=true;roofVis();draw();},roof:()=>{roofVis();draw();},truck:()=>{const t=scene.getObjectByName('truck');if(t)t.visible=state.truck;draw();},resize};
 api.floor(state.floor);api.go(state.view);
 }
 })();
