@@ -59,6 +59,11 @@ svg text{font-family:"IBM Plex Mono",ui-monospace,monospace}
 .ts{font-size:12px;fill:var(--muted)}
 .rn{font:500 12px "IBM Plex Sans",system-ui,sans-serif;fill:var(--ink)}
 .ra{font-size:11px;fill:var(--muted)}
+.kd{font-size:10px;fill:var(--ink)}
+.di{font-size:9.5px;fill:var(--accent)}
+.dc{font-size:9.5px;fill:var(--muted)}
+.do{font-size:9.5px;fill:var(--ink);font-weight:500}
+.dm{display:block;font:12px "IBM Plex Mono",ui-monospace,monospace;color:var(--muted)}
 .halo{paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
 .k rect,.k circle{fill:var(--k-fill);stroke:var(--k-stroke);stroke-width:1}
 .d rect{fill:var(--d-fill);stroke:var(--d-stroke);stroke-width:1}
@@ -99,6 +104,7 @@ tr.out td{color:var(--muted)}
 <div class="bar big" id="tabs"><span class="lbl">Вид</span>
 <button id="tab-3d" data-t="v3" aria-pressed="true">3D-модель</button>
 <button id="tab-plan" data-t="plan" aria-pressed="false">План и экспликация</button>
+<button id="tab-dim" data-t="dimtab" aria-pressed="false">План с размерами</button>
 <button id="tab-site" data-t="sitetab" aria-pressed="false">Схема участка</button>
 </div>
 <div class="bar big" id="layers" hidden><span class="lbl">Сети</span></div>
@@ -175,6 +181,20 @@ tr.out td{color:var(--muted)}
 </div>
 </section>
 
+<section id="dimtab" hidden>
+<div class="planbox">
+<div class="card">
+<svg id="dim1" viewBox="0 0 770 1060" width="100%" role="img" style="min-width:560px" hidden><title>План первого этажа с размерами</title><desc>Первый этаж без мебели: внутренние размеры каждого помещения, по наружным стенам цепочки простенков, окон и дверей и общие длины стен. Размеры в мм.</desc></svg>
+<svg id="dim2" viewBox="0 0 770 1060" width="100%" role="img" style="min-width:560px"><title>План второго этажа с размерами</title><desc>Второй этаж без мебели: внутренние размеры каждого помещения, по наружным стенам цепочки простенков и окон и общие длины стен. Размеры в мм.</desc></svg>
+<p class="hint" style="margin-top:8px"><b style="color:var(--accent);font-weight:500">Бирюзовым</b> — внутренние размеры помещений по чистым стенам, без отделки. По наружным стенам <b style="color:var(--muted);font-weight:500">серым</b> простенки, <b style="color:var(--ink);font-weight:500">тёмным</b> окна и двери, вторая линия — длина стены. Наружные стены 400, несущая стена вдоль дома 200, перегородки 100–150. Все размеры в мм. Этаж переключается кнопками «1 этаж» и «2 этаж».</p>
+</div>
+<div class="card">
+<table id="dt1" hidden><caption>Размеры помещений · 1 этаж</caption></table>
+<table id="dt2"><caption>Размеры помещений · 2 этаж</caption></table>
+</div>
+</div>
+</section>
+
 <section id="sitetab" hidden>
 <div class="card">
 <svg id="site" class="no-truck" viewBox="0 0 729 581" width="100%" role="img" style="min-width:560px"><title>Схема участков</title><desc>Участки …299 и …300 со всеми размерами: длины заборов, склад 5,5 × 5,6 и вагончик вдоль левого забора, новый дом 10 × 15,3 с одной ступенькой к складу, существующий дом 11 × 10, ворота, привязки построек к заборам и границе.</desc></svg>
@@ -205,6 +225,8 @@ tr.out td{color:var(--muted)}
 <li><b>Второй этаж.</b> Задняя часть с мастер-спальней, гардеробной и её санузлом такая же, как в прошлых вариантах. Лестница справа, общий санузел слева 8 м²: ванна, отдельный душ, две раковины и стиральная машина, унитаз под окном в крыше. Слева спереди вместо кабинета и балкона спальня 22,1 м² до самого фасада. Спальня 16,2 м² справа спереди.</li>
 <li><b>Стояки.</b> Плита лежит на грунте, поэтому слив кухни, санузла и бойлерной первого этажа уходит прямо вниз, трубы закладывают под плиту до заливки. Мастер-санузел второго этажа стоит над санузлом и бойлерной первого, его стояк проходит там. Унитаз общего санузла стоит у левой стены, его стояк спускается в кухонную колонну у левой стены.</li>
 <li><b>Спальня слева спереди</b> на месте кабинета и балкона, 5,2 × 4,25 м, 22,1 м². Балкона больше нет: стена с окном 2 м стоит по фасаду, как на первом этаже, над гостиной обычное перекрытие, гидроизоляция эксплуатируемой кровли не нужна. Вход из коридора в правом заднем углу. Кровать 1,6 × 2,0 м изголовьем к несущей стене, у стены коридора шкаф 2,3 м, у низкой левой стены под окнами в крыше комод, у окна на фасад кресло со столиком. У левой стены потолок 1,5 м, в 1,7 м от неё уже 2,5 м.</li>
+<li><b>План с размерами</b> — отдельная вкладка. На нём этаж без мебели: у каждого помещения внутренние ширина и глубина, по наружным стенам простенки, окна и двери и длина каждой стены, справа таблица размеров помещений. Составные комнаты записаны суммой прямоугольников.</li>
+<li><b>Размеры кухни</b> проставлены на плане первого этажа, в мм по чистым стенам без отделки. Слева снаружи цепочка по левой стене от задней стены кухни: угол столешницы 600, доборный модуль 300, колонны 1200, столешница под окном 1400 и 300 до перегородки, всего 3800. Внутри: столешница у задней стены 3000 и 2200 свободной стены до несущей, остров 2200 × 900, проходы 1100 до задней столешницы, 1200 до перегородки, 900 до колонн и 1500 до несущей стены. Перед заказом кухни нужен замер на месте.</li>
 <li><b>Площади</b> посчитаны по модели по внутренним размерам комнат. Лестница с забежными ступенями, 18 подъёмов по 170 мм. Это схема для обсуждения, не рабочий чертёж.</li>
 </ul>
 </div>
@@ -328,6 +350,7 @@ ROOF:{ridge:3700,knee:2100}
 const HS=window.HOUSE,NS='http://www.w3.org/2000/svg';
 const S=0.042,OX=156.8,OY=56.8,X=x=>OX+x*S,Y=y=>OY+y*S;
 function drawPlan(svg,P){
+ svg._P=P;
  function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e;}
  function R(x,y,w,d,a,p){return el('rect',Object.assign({x:X(x),y:Y(y),width:w*S,height:d*S},a||{}),p);}
  function T(px,py,s,cls,anc){const e=el('text',{x:px,y:py,'text-anchor':anc||'middle',class:cls});e.textContent=s;return e;}
@@ -392,11 +415,27 @@ drawPlan(document.getElementById('plan1'),{
  stair:(el,R,PT,g)=>{stairTreads(g,R,false);winders(el,PT,g,{fill:'none',stroke:'var(--f-stroke)','stroke-width':0.8,'stroke-dasharray':'3 2'});
   el('polyline',{points:PT([[4950,8550],[6600,8550],[7150,9075],[6700,9560]]),fill:'none',stroke:'var(--muted)','stroke-width':1});
   el('polygon',{points:PT([[6760,9480],[6620,9640],[6640,9440]]),fill:'var(--muted)'});},
- labels:[['1 Гостиная','21,84',2700,10750,'middle',1],['2 Кухня-столовая','38,32',1300,7500],['3 Прихожая-холл','22,52',6000,12050],
+ labels:[['1 Гостиная','21,84',2700,10750,'middle',1],['2 Кухня-столовая','38,32',2150,5150],['3 Прихожая-холл','22,52',6000,12050],
   ['4 Кладовка','2,49',6290,9600,'middle',1],['5 Санузел','5,04',5850,7000],['6 Бойлерная','4,51',6100,5250],['7 Детская','15,58',5950,2650,'middle',1],
   ['8 Крыльцо','2,60',7000,14250]],
- notes:[['склад',-2400,3100,'middle'],['вход в подвал ↓',250,1950,'end',1],['контур подвала',2600,9750,'middle',1],['раздвижные двери',1800,10140,'middle'],['холл',4325,6900,'middle'],['шкаф',6275,10560,'middle'],['ТВ',3450,12400,'end'],['столовая',2150,5300,'middle']]
+ notes:[['склад',-2400,3100,'middle'],['вход в подвал ↓',250,1950,'end',1],['контур подвала',2600,9750,'middle',1],['раздвижные двери',1800,10140,'middle'],['холл',4325,6900,'middle'],['шкаф',6275,10560,'middle'],['ТВ',3450,12400,'end']]
 });
+(function kdims(){
+ /* размеры кухни на плане 1 этажа, мм: цепочка по левой стене снаружи, столешница у задней стены, остров и проходы */
+ const svg=document.getElementById('plan1');svg.setAttribute('viewBox','-44 0 724 760');
+ const el=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e;};
+ const ln={stroke:'var(--k-stroke)','stroke-width':0.8};
+ const T=(px,py,s,anc)=>{const e=el('text',{x:px,y:py,'text-anchor':anc||'middle',class:'kd halo'});e.textContent=s;return e;};
+ const H=(x1,x2,y)=>{el('line',Object.assign({x1:X(x1),x2:X(x2),y1:Y(y),y2:Y(y)},ln));[x1,x2].forEach(x=>el('line',Object.assign({x1:X(x),x2:X(x),y1:Y(y)-3,y2:Y(y)+3},ln)));T((X(x1)+X(x2))/2,Y(y)-3,String(x2-x1));};
+ const V=(y1,y2,px,side)=>{el('line',Object.assign({x1:px,x2:px,y1:Y(y1),y2:Y(y2)},ln));[y1,y2].forEach(y=>el('line',Object.assign({x1:px-3,x2:px+3,y1:Y(y),y2:Y(y)},ln)));T(px+(side<0?-5:5),(Y(y1)+Y(y2))/2+3.5,String(y2-y1),side<0?'end':'start');};
+ H(-1600,1400,7120);H(1400,3600,7120);
+ H(-1600,-1000,7800);H(-1000,-100,7800);H(-100,2100,7800);H(2100,3600,7800);
+ V(7000,8100,X(1300),1);V(9000,10200,X(1300),-1);
+ const xl=X(-2000)-12;[[6400,7000],[7000,7300],[7300,8500],[8500,9900],[9900,10200]].forEach(p=>V(p[0],p[1],xl,-1));
+ V(6400,10200,xl-36,-1);
+ T(X(1000),Y(8550)+3.5,'остров 2200 × 900');
+})();
+
 (function site(){
  /* план участков в ориентации эскиза: задний забор сверху, граница с …300 справа от дома */
  const svg=document.getElementById('site'),K=HS.SKLAD,PL=HS.PLOT,V=HS.VER,O=PL.old,FD=HS.FUND;
@@ -523,6 +562,60 @@ drawPlan(document.getElementById('plan2'),{
   ['5 Санузел','7,96',1200,9300],['6 Коридор','8,88',3825,9500],['7 Спальня','16,15',6300,13900],['8 Спальня','22,10',400,12500]],
  notes:[['проём лестницы',6100,8700,'middle',1],['зона отдыха',2250,2750,'middle'],['окна в крыше',-1500,10700,'start',1]]
 });
+(function dimPlans(){
+ /* отдельный план с размерами, мм: внутренние размеры каждого помещения и цепочки простенков и проёмов по наружным стенам */
+ const SD=0.058,DX=x=>214+x*SD,DY=y=>104+y*SD;
+ const FULL=[[300,-400],[8000,-400],[8000,14900],[-2000,14900],[-2000,6000],[300,6000]];
+ const inside=(p,poly)=>{let c=false;for(let i=0,j=poly.length-1;i<poly.length;j=i++){const a=poly[i],b=poly[j];if((a[1]>p[1])!==(b[1]>p[1])&&p[0]<(b[0]-a[0])*(p[1]-a[1])/(b[1]-a[1])+a[0])c=!c;}return c;};
+ function draw(id,src,tid,walls,floors,contour,rooms,decks){
+  const svg=document.getElementById(id),P=document.getElementById(src)._P;
+  const el=(t,a,p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e;};
+  const R=(x,y,w,d,a,p)=>el('rect',Object.assign({x:DX(x),y:DY(y),width:w*SD,height:d*SD},a||{}),p);
+  const PT=p=>p.map(q=>DX(q[0])+','+DY(q[1])).join(' ');
+  const T=(px,py,s,cls,anc,rot)=>{const e=el('text',{x:px,y:py,'text-anchor':anc||'middle',class:cls});e.textContent=s;if(rot)e.setAttribute('transform','rotate(-90 '+px+' '+py+')');return e;};
+  floors.forEach(f=>R(f[0],f[1],f[2],f[3],{fill:'var(--floor)'}));
+  (decks||[]).forEach(d=>R(d[0],d[1],d[2],d[3],{fill:'var(--deck)',stroke:'var(--f-stroke)','stroke-width':0.8}));
+  P.stair(el,R,PT,el('g',{class:'f'}));
+  walls.forEach(w=>{
+   const piece=(a,b)=>{if(b<=a)return;w.o==='h'?R(a,w.c0,b-a,w.c1-w.c0,{fill:'var(--wall)'}):R(w.c0,a,w.c1-w.c0,b-a,{fill:'var(--wall)'});};
+   let cur=w.a0;
+   w.ops.forEach(op=>{piece(cur,op.f);cur=op.t;
+    if(op.k==='w'||op.k==='g'||op.k==='s'){const m=(w.c0+w.c1)/2,st={fill:'none',stroke:'var(--wall)','stroke-width':1};
+     if(w.o==='h'){R(op.f,w.c0,op.t-op.f,w.c1-w.c0,st);el('line',{x1:DX(op.f),x2:DX(op.t),y1:DY(m),y2:DY(m),stroke:'var(--wall)','stroke-width':1});}
+     else{R(w.c0,op.f,w.c1-w.c0,op.t-op.f,st);el('line',{x1:DX(m),x2:DX(m),y1:DY(op.f),y2:DY(op.t),stroke:'var(--wall)','stroke-width':1});}}});
+   piece(cur,w.a1);});
+  /* внутренние размеры: ширина и глубина каждого прямоугольника пола */
+  const li={stroke:'var(--accent)','stroke-width':0.7};
+  floors.forEach(f=>{const x=f[0],y=f[1],w=f[2],d=f[3],iy=DY(y+Math.min(280,d/2)),ix=DX(x+Math.min(280,w/2));
+   el('line',Object.assign({x1:DX(x),x2:DX(x+w),y1:iy,y2:iy},li));[x,x+w].forEach(v=>el('line',Object.assign({x1:DX(v),x2:DX(v),y1:iy-3,y2:iy+3},li)));T(DX(x+w/2),iy+10,String(w),'di halo');
+   el('line',Object.assign({x1:ix,x2:ix,y1:DY(y),y2:DY(y+d)},li));[y,y+d].forEach(v=>el('line',Object.assign({x1:ix-3,x2:ix+3,y1:DY(v),y2:DY(v)},li)));T(ix+11,DY(y+d/2),String(d),'di halo','middle',1);});
+  P.labels.forEach(l=>{T(DX(l[2]),DY(l[3]),l[0],'rn halo');T(DX(l[2]),DY(l[3])+13,l[1]+' м²','ra halo');});
+  /* наружные стены: та, у которой с одной стороны улица; цепочка простенков и проёмов и общая длина */
+  const ext=walls.filter(w=>w.c1-w.c0>=400&&!w.hh).map(w=>{const m=(w.a0+w.a1)/2,t=(w.c1-w.c0)/2+60,cm=(w.c0+w.c1)/2;
+   const ia=inside(w.o==='h'?[m,cm-t]:[cm-t,m],contour),ib=inside(w.o==='h'?[m,cm+t]:[cm+t,m],contour);return ia===ib?null:{w,side:ia?1:-1};}).filter(Boolean);
+  const ends=(w,side)=>{let a=w.a0,b=w.a1;ext.forEach(e=>{const v=e.w;if(v.o===w.o)return;
+   /* стена-ступенька примыкает снаружи: наружная часть кончается у её ближней грани */
+   if(side<0?v.a1===w.c0:v.a0===w.c1){if(v.c1===w.a1)b=v.c0;if(v.c0===w.a0)a=v.c1;return;}
+   if(v.a0>w.c0+1||v.a1<w.c1-1)return;if(v.c1===w.a0)a=v.c0;if(v.c0===w.a1)b=v.c1;});return [a,b];};
+  const lc={stroke:'var(--muted)','stroke-width':0.6};
+  const seg=(w,side,p,q,o,cls)=>{const face=side<0?w.c0:w.c1;
+   if(w.o==='h'){const y=DY(face)+o;el('line',Object.assign({x1:DX(p),x2:DX(q),y1:y,y2:y},lc));[p,q].forEach(v=>el('line',Object.assign({x1:DX(v),x2:DX(v),y1:y-3,y2:y+3},lc)));T((DX(p)+DX(q))/2,y+(side<0?-3:10),String(q-p),cls);}
+   else{const x=DX(face)+o;el('line',Object.assign({x1:x,x2:x,y1:DY(p),y2:DY(q)},lc));[p,q].forEach(v=>el('line',Object.assign({x1:x-3,x2:x+3,y1:DY(v),y2:DY(v)},lc)));T(x+(side<0?-3:10),(DY(p)+DY(q))/2,String(q-p),cls,'middle',1);}};
+  ext.forEach(({w,side})=>{const e=ends(w,side),pts=[e[0]];w.ops.forEach(o=>pts.push(o.f,o.t));pts.push(e[1]);
+   for(let i=0;i<pts.length-1;i++)seg(w,side,pts[i],pts[i+1],side*20,i%2?'do':'dc');
+   if(w.ops.length)seg(w,side,e[0],e[1],side*38,'dc');});
+  /* габариты дома */
+  {const y=DY(14900)+62;el('line',Object.assign({x1:DX(-2000),x2:DX(8000),y1:y,y2:y},lc));[-2000,8000].forEach(v=>el('line',Object.assign({x1:DX(v),x2:DX(v),y1:y-3,y2:y+3},lc)));T(DX(3000),y+10,'10000','do');
+   const x=DX(8000)+62;el('line',Object.assign({x1:x,x2:x,y1:DY(-400),y2:DY(14900)},lc));[-400,14900].forEach(v=>el('line',Object.assign({x1:x-3,x2:x+3,y1:DY(v),y2:DY(v)},lc)));T(x+10,DY(7250),'15300','do','middle',1);}
+  /* таблица размеров помещений */
+  const tb=document.getElementById(tid);
+  rooms.forEach(r=>{const l=P.labels[r[0]],k=l[0].indexOf(' '),tr=tb.insertRow();tr.insertCell().textContent=l[0].slice(0,k);
+   const c=tr.insertCell();c.textContent=l[0].slice(k+1);const sp=document.createElement('span');sp.className='dm';
+   sp.textContent=r[2]||r[1].map(i=>floors[i][2]+' × '+floors[i][3]).join(' + ');c.appendChild(sp);tr.insertCell().textContent=l[1];});
+ }
+ draw('dim1','plan1','dt1',HS.walls1,HS.floors1,HS.FUND.contour,[[0,[2]],[1,[1,0]],[2,[5,6,4]],[3,[10]],[4,[8]],[5,[7]],[6,[3]],[7,null,'2000 × 1300']],[[6000,13600,2000,1300],[6300,14900,1400,600]]);
+ draw('dim2','plan2','dt2',HS.walls2,HS.floors2,FULL,[[0,[1,0]],[1,[2]],[2,[3]],[3,[4,5]],[4,[6]],[5,[7]],[6,[9]],[7,[8]]]);
+})();
 (function found(){
  const svg=document.getElementById('fplan'),F=HS.FUND,V=HS.VER,PL=HS.PLOT;
  const el=(t,a)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e;};
@@ -637,6 +730,7 @@ function syncRoof(){roofBtn.setAttribute('aria-pressed',state.roof&&state.floor=
 function applyFloor(){
  document.querySelectorAll('#floors button[data-f]').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.f===state.floor));
  ['0','1','2'].forEach(n=>['plan','t'].forEach(p=>document.getElementById(p+n).toggleAttribute('hidden',+n!==state.floor)));
+ document.getElementById('dim1').toggleAttribute('hidden',state.floor===2);document.getElementById('dim2').toggleAttribute('hidden',state.floor!==2);document.getElementById('dt1').toggleAttribute('hidden',state.floor===2);document.getElementById('dt2').toggleAttribute('hidden',state.floor!==2);
  syncRoof();document.getElementById('layers').hidden=state.floor!==0;document.getElementById('build').hidden=state.floor!==0;
 }
 /* кнопки стройки: убрать перекрытие подвала, показать опалубку */
@@ -656,7 +750,7 @@ const truckBtn=document.getElementById('truck-btn');
 truckBtn.addEventListener('click',()=>{state.truck=!state.truck;truckBtn.setAttribute('aria-pressed',state.truck);document.getElementById('site').classList.toggle('no-truck',!state.truck);api&&api.truck();});
 document.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',()=>{
  state.tab=b.dataset.t;document.querySelectorAll('#tabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));
- ['v3','plan','sitetab'].forEach(id=>document.getElementById(id).hidden=state.tab!==id);
+ ['v3','plan','dimtab','sitetab'].forEach(id=>document.getElementById(id).hidden=state.tab!==id);
  if(state.tab==='v3'&&api)api.resize();
 }));
 applyFloor();renderViews();
