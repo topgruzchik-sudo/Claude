@@ -1271,7 +1271,8 @@ function roofVis(){const on=state.floor===2&&!state.cut;raftG.visible=on&&state.
  const rm=[mat('#6f757b',{roughness:0.5,metalness:0.4}).clone(),mat('#5f656b').clone()];rm.forEach(m=>m.side=THREE.DoubleSide);
  const roof=new THREE.Mesh(g,rm);roof.castShadow=true;roof.receiveShadow=true;scene.add(roof);
  /* фермы поперёк, от стоек у вагончика до балки на стене дома; прогоны вдоль */
- [-500,3000,6500].forEach(k=>{const a=cp(k,2600),t=(-1600-a[0])/u[0],b=[a[0]+u[0]*t,a[1]+u[1]*t];
+ /* задняя и средняя фермы поперёк вагончика, передняя — по переднему краю навеса, чтобы не выходила за угол дома */
+ [-500,3000,6500].forEach(k=>{const a=cp(k,2600),t=(-1600-a[0])/u[0],b=k===6500?[-1600,12850]:[a[0]+u[0]*t,a[1]+u[1]*t];
   B(a[0]-50,a[1]-50,100,100,GRs,h(a)-GRs-40,steel,scene);beam(a,h(a)-60,b,h(b)-60,60,120,steel);beam(a,h(a)-300,b,h(b)-260,40,60,steel);});
  beam(cp(-500,2600),h(cp(-500,2600))-60,cp(6500,2600),h(cp(6500,2600))-60,80,120,steel);beam([-1600,Q[3][1]],h([-1600,Q[3][1]])-60,[-1600,12900],h([-1600,12900])-60,80,140,steel);
  for(let i=1;i<=3;i++){const f=i/4,a=[Q[0][0]+(Q[3][0]-Q[0][0])*f,Q[0][1]+(Q[3][1]-Q[0][1])*f],b=[Q[1][0]+(Q[2][0]-Q[1][0])*f,Q[1][1]+(Q[2][1]-Q[1][1])*f];beam(a,h(a)-30,b,h(b)-30,40,60,steel);}
